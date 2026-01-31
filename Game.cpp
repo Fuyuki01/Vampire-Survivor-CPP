@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Constants.h"
+#include "Player.h"
 
 // Constructors
 Game::Game(){
@@ -31,12 +32,13 @@ void Game::pollevents()
 void Game::update()
 {
     pollevents();
+    player->update();
 }
 
 void Game::render()
 {
     window->clear(sf::Color::Black);
-    
+    player->render(window);
     window->display();
 }
 
@@ -52,6 +54,7 @@ bool Game::windowIsOpen() const
 void Game::initVariables()
 {    
     window = nullptr;
+    player = new Player();
     videoMode.size.x = GameConstants::HEIGHT;
     videoMode.size.y = GameConstants::WIDTH;
 
