@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class Enemy;
+
 class Game{
     public:
         // Constructors
@@ -16,12 +18,16 @@ class Game{
         bool windowIsOpen() const;
 
     private:
+        // Values
+        std::vector<Enemy*> enemyVector;
+
         // Window
         sf::RenderWindow* window;
         sf::VideoMode videoMode;
         
         // Private Functions
         void initVariables();
+        void initEnemies();
         void initWindow();
 
 };

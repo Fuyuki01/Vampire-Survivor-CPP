@@ -1,10 +1,12 @@
 #include "Game.h"
+#include "Enemy.h"
 #include "Constants.h"
 
 // Constructors
 Game::Game(){
     initVariables();
     initWindow();
+    initEnemies();
 }
 
 Game::~Game(){
@@ -13,6 +15,7 @@ Game::~Game(){
 
 // Functions
 
+// The games key press events
 void Game::pollevents()
 {
     while (const std::optional event = window->pollEvent()){
@@ -31,12 +34,19 @@ void Game::pollevents()
 void Game::update()
 {
     pollevents();
+    for (auto* e : enemyVector){
+        e->updateAppearance();
+    }
 }
 
 void Game::render()
 {
     window->clear(sf::Color::Black);
     
+    for (auto* e : enemyVector){
+        window->draw(e->rectangle);
+    }
+
     window->display();
 }
 
@@ -55,6 +65,12 @@ void Game::initVariables()
     videoMode.size.x = GameConstants::HEIGHT;
     videoMode.size.y = GameConstants::WIDTH;
 
+}
+
+void Game::initEnemies()
+{
+    Enemy* enemy = new Enemy();
+    enemyVector.push_back(enemy);    
 }
 
 void Game::initWindow()
