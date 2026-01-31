@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Enemy.h"
 #include "Constants.h"
+#include "Player.h"
 
 // Constructors
 Game::Game(){
@@ -37,6 +38,7 @@ void Game::update()
     for (auto* e : enemyVector){
         e->updateAppearance();
     }
+    player->update();
 }
 
 void Game::render()
@@ -47,6 +49,7 @@ void Game::render()
         window->draw(e->rectangle);
     }
 
+    player->render(window);
     window->display();
 }
 
@@ -62,6 +65,7 @@ bool Game::windowIsOpen() const
 void Game::initVariables()
 {    
     window = nullptr;
+    player = new Player();
     videoMode.size.x = GameConstants::HEIGHT;
     videoMode.size.y = GameConstants::WIDTH;
 

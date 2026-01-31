@@ -2,10 +2,11 @@
 #include <SFML/Graphics.hpp>
 
 class Enemy;
+class Player;
 
 class Game{
     public:
-        // Constructors
+        // Constructors 
         Game();
         ~Game();
 
@@ -24,7 +25,7 @@ class Game{
         // Window
         sf::RenderWindow* window;
         sf::VideoMode videoMode;
-        
+        Player* player;
         // Private Functions
         void initVariables();
         void initEnemies();
