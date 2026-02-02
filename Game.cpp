@@ -39,6 +39,7 @@ void Game::update()
     for (auto* e : enemies){
         e->update();
     }
+    
     player->update();
 }
 

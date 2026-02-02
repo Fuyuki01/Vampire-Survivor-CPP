@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Constants.h"
+#include <cmath>
 
 Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED), 
 enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
