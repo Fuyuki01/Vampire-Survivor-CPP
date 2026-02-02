@@ -35,8 +35,9 @@ void Game::pollevents()
 void Game::update()
 {
     pollevents();
-    for (auto* e : enemyVector){
-        e->updateAppearance();
+    
+    for (auto* e : enemies){
+        e->update();
     }
     player->update();
 }
@@ -45,7 +46,7 @@ void Game::render()
 {
     window->clear(sf::Color::Black);
     
-    for (auto* e : enemyVector){
+    for (auto* e : enemies){
         window->draw(e->rectangle);
     }
 
@@ -73,8 +74,8 @@ void Game::initVariables()
 
 void Game::initEnemies()
 {
-    Enemy* enemy = new Enemy();
-    enemyVector.push_back(enemy);    
+    Enemy* enemy = new Enemy(player);
+    enemies.push_back(enemy);    
 }
 
 void Game::initWindow()

@@ -28,6 +28,10 @@ void Player::render(sf::RenderTarget* target)
     target->draw(this->shape);
 }
 
+sf::Vector2f Player::returnPosition(){
+    return shape.getPosition();
+}
+
 
 void Player::keyInputs()
 {

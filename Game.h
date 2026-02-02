@@ -20,7 +20,7 @@ class Game{
 
     private:
         // Values
-        std::vector<Enemy*> enemyVector;
+        std::vector<Enemy*> enemies;
 
         // Window
         sf::RenderWindow* window;

@@ -1,17 +1,26 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class Player;
+
 class Enemy{
     public:
-        explicit Enemy();
+        explicit Enemy(Player* player);
         virtual ~Enemy() = default;
 
-        void updateAppearance();
+        void update();
+        void render();
 
-        sf::RectangleShape rectangle;
+        void updateAppearance();
+        sf::RectangleShape rectangle;   
 
     private:
         float enemySpeed;
         sf::Vector2f enemySize;
-        sf::Vector2f enemyPosition;
+        sf::Vector2f enemyInitPosition;
+
+        Player* playerPointer;
+
+        sf::Vector2f decidedirection();
+        void advanceposition();
 };

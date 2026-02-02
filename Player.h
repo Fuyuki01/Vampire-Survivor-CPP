@@ -11,6 +11,7 @@ class Player {
         void update();
         void render(sf::RenderTarget* target);
         void keyInputs();
+        sf::Vector2f returnPosition();
 
     private:
         sf::RectangleShape shape;
