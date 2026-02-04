@@ -3,7 +3,6 @@
 #include "Constants.h"
 #include "Player.h"
 
-// Constructors
 Game::Game(){
     initVariables();
     initWindow();
@@ -38,6 +37,12 @@ void Game::update()
     
     for (auto* e : enemies){
         e->update();
+        sf::Rect<float> playerBounds = player->returnBounds();
+        sf::Rect<float> enemyBounds = e->returnBounds();
+
+        if (playerBounds.findIntersection(enemyBounds)){
+            window->close();
+        }
     }
     
     player->update();

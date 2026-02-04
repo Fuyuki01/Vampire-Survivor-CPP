@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
 class Player {
     public:
         // Constructors
@@ -12,6 +11,7 @@ class Player {
         void render(sf::RenderTarget* target);
         void keyInputs();
         sf::Vector2f returnPosition();
+        sf::Rect<float> returnBounds();
 
     private:
         sf::RectangleShape shape;

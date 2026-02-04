@@ -32,6 +32,10 @@ sf::Vector2f Player::returnPosition(){
     return shape.getPosition();
 }
 
+sf::Rect<float> Player::returnBounds()
+{
+    return shape.getGlobalBounds();
+}
 
 void Player::keyInputs()
 {

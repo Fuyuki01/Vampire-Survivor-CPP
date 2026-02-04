@@ -21,6 +21,11 @@ void Enemy::render()
 {
 }
 
+sf::Rect<float> Enemy::returnBounds()
+{
+    return rectangle.getGlobalBounds();
+}
+
 sf::Vector2f Enemy::decidedirection()
 {
     sf::Vector2f playerPosition = playerPointer->returnPosition();

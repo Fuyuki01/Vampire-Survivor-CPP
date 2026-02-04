@@ -12,7 +12,9 @@ class Enemy{
         void render();
 
         void updateAppearance();
-        sf::RectangleShape rectangle;   
+        sf::RectangleShape rectangle;
+
+        sf::Rect<float> returnBounds();
 
     private:
         float enemySpeed;
