@@ -5,6 +5,7 @@
 Player::Player()
 {
     speed = GameConstants::SPEED;
+    health = GameConstants::PLAYER_HEALT;
     initShape();
 }
 
@@ -37,6 +38,12 @@ sf::Rect<float> Player::returnBounds()
     return shape.getGlobalBounds();
 }
 
+float Player::returnHealth()
+{
+    return health;
+}
+
+
 void Player::keyInputs()
 {
     // Movement
@@ -56,4 +63,9 @@ void Player::keyInputs()
     {
         shape.move(sf::Vector2f(speed, 0.f));
     }
+}
+
+void Player::getDamaged(float damage)
+{
+    health -= damage;
 }

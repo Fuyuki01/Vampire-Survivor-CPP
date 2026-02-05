@@ -21,11 +21,11 @@ class Game{
     private:
         // Values
         std::vector<Enemy*> enemies;
-
         // Window
         sf::RenderWindow* window;
         sf::VideoMode videoMode;
         Player* player;
+
         // Private Functions
         void initVariables();
         void initEnemies();

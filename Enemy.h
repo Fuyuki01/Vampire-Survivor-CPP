@@ -13,13 +13,21 @@ class Enemy{
 
         void updateAppearance();
         sf::RectangleShape rectangle;
-
+    
         sf::Rect<float> returnBounds();
+
+        float returnAttackTime();
+        void restartAttackTime();
+
 
     private:
         float enemySpeed;
         sf::Vector2f enemySize;
         sf::Vector2f enemyInitPosition;
+
+        sf::Clock attackClock;
+
+        float hitFrame;
 
         Player* playerPointer;
 

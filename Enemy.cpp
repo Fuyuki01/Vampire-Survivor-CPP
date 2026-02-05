@@ -3,7 +3,7 @@
 #include "Constants.h"
 #include <cmath>
 
-Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED), 
+Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED), hitFrame(0),
 enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
 enemySize(GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE), playerPointer(player)
 {
@@ -24,6 +24,16 @@ void Enemy::render()
 sf::Rect<float> Enemy::returnBounds()
 {
     return rectangle.getGlobalBounds();
+}
+
+float Enemy::returnAttackTime()
+{
+    return attackClock.getElapsedTime().asSeconds();
+}
+
+void Enemy::restartAttackTime()
+{
+    attackClock.restart();
 }
 
 sf::Vector2f Enemy::decidedirection()

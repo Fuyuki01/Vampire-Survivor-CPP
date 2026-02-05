@@ -10,6 +10,9 @@ class Player {
         void update();
         void render(sf::RenderTarget* target);
         void keyInputs();
+        void getDamaged(float damage);
+
+        float returnHealth();
         sf::Vector2f returnPosition();
         sf::Rect<float> returnBounds();
 
@@ -17,4 +20,5 @@ class Player {
         sf::RectangleShape shape;
         void initShape();
         float speed;
+        float health;
 };

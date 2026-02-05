@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Constants.h"
 #include "Player.h"
+#include <iostream>
 
 Game::Game(){
     initVariables();
@@ -40,8 +41,14 @@ void Game::update()
         sf::Rect<float> playerBounds = player->returnBounds();
         sf::Rect<float> enemyBounds = e->returnBounds();
 
-        if (playerBounds.findIntersection(enemyBounds)){
-            window->close();
+        if (playerBounds.findIntersection(enemyBounds) &&
+            e->returnAttackTime() > GameConstants::ENEMY_HIT_FRAME){
+            player->getDamaged(GameConstants::ENEMY_DAMAGE);
+            std::cout << player->returnHealth() << std::endl;
+            e->restartAttackTime();
+            if (player->returnHealth() <= 0){
+                window->close();
+            }
         }
     }
     
