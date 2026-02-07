@@ -9,28 +9,39 @@ class Enemy{
         virtual ~Enemy() = default;
 
         void update();
-        void render();
+        void render(sf::RenderTarget* target);
 
-        void updateAppearance();
-        sf::RectangleShape rectangle;
+        virtual void updateAppearance() = 0;
+
+        void initliazeHitbox();
     
         sf::Rect<float> returnBounds();
 
         float returnAttackTime();
         void restartAttackTime();
 
-
-    private:
+    protected:
+        // Player pointer
+        Player* playerPointer;
+        
+        // Variables
         float enemySpeed;
         sf::Vector2f enemySize;
         sf::Vector2f enemyInitPosition;
 
-        sf::Clock attackClock;
+        // Texture 
+        sf::Texture texture;
+        sf::Sprite sprite;
 
+        // Hitbox
+        sf::RectangleShape hitBox;
+
+        // Clock
+        sf::Clock attackClock;
         float hitFrame;
 
-        Player* playerPointer;
-
+        // Helper Functions
         sf::Vector2f decidedirection();
         void advanceposition();
+
 };

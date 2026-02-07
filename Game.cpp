@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Constants.h"
 #include "Player.h"
+#include "Enemy_Troll.h"
 #include <iostream>
 
 Game::Game(){
@@ -12,6 +13,11 @@ Game::Game(){
 
 Game::~Game(){
     delete window;
+    for (auto* e: enemies){
+        delete e;
+    }
+    delete player;
+    enemies.clear();
 }
 
 // Functions
@@ -44,7 +50,9 @@ void Game::update()
         if (playerBounds.findIntersection(enemyBounds) &&
             e->returnAttackTime() > GameConstants::ENEMY_HIT_FRAME){
             player->getDamaged(GameConstants::ENEMY_DAMAGE);
+            
             std::cout << player->returnHealth() << std::endl;
+
             e->restartAttackTime();
             if (player->returnHealth() <= 0){
                 window->close();
@@ -56,11 +64,11 @@ void Game::update()
 }
 
 void Game::render()
-{
+{   
     window->clear(sf::Color::Black);
     
     for (auto* e : enemies){
-        window->draw(e->rectangle);
+        e->render(window);
     }
 
     player->render(window);
@@ -87,7 +95,7 @@ void Game::initVariables()
 
 void Game::initEnemies()
 {
-    Enemy* enemy = new Enemy(player);
+    Enemy* enemy = new Enemy_Troll(player);
     enemies.push_back(enemy);    
 }
 

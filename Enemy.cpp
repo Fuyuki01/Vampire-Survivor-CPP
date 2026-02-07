@@ -5,25 +5,23 @@
 
 Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED), hitFrame(0),
 enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
-enemySize(GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE), playerPointer(player)
+enemySize({GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE}), playerPointer(player), texture(), sprite(texture)
 {
-
-    updateAppearance();
-
+    initliazeHitbox();
 }
 
 void Enemy::update(){
-    decidedirection();
     advanceposition();
 }
 
-void Enemy::render()
+void Enemy::render(sf::RenderTarget* target)
 {
+    target->draw(sprite);
 }
 
 sf::Rect<float> Enemy::returnBounds()
 {
-    return rectangle.getGlobalBounds();
+    return hitBox.getGlobalBounds();
 }
 
 float Enemy::returnAttackTime()
@@ -39,7 +37,7 @@ void Enemy::restartAttackTime()
 sf::Vector2f Enemy::decidedirection()
 {
     sf::Vector2f playerPosition = playerPointer->returnPosition();
-    sf::Vector2f enemyPosition = rectangle.getPosition();
+    sf::Vector2f enemyPosition = hitBox.getPosition();
     sf::Vector2f direction = playerPosition - enemyPosition;
     return direction;
 
@@ -52,15 +50,16 @@ void Enemy::advanceposition()
     if (length != 0.f){
         direction /= length;
     }
-    sf::Vector2f enemyPosition = rectangle.getPosition();
+    sf::Vector2f enemyPosition = hitBox.getPosition();
     
-    rectangle.move(direction * enemySpeed);
+    hitBox.move(direction * enemySpeed);
+    sprite.setPosition(hitBox.getPosition());
 }
 
-void Enemy::updateAppearance(){
-    rectangle.setSize(enemySize);
-    rectangle.setFillColor(sf::Color::Red);
-    rectangle.setPosition(enemyInitPosition);
-    rectangle.setOutlineColor(sf::Color::White);
-    rectangle.setOutlineThickness(2.0f);
+void Enemy::initliazeHitbox(){
+    hitBox.setSize(enemySize);
+    hitBox.setFillColor(sf::Color::Red);
+    hitBox.setPosition(enemyInitPosition);
+    hitBox.setOutlineColor(sf::Color::White);
+    hitBox.setOutlineThickness(2.0f);
 }
