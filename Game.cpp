@@ -9,6 +9,7 @@ Game::Game(){
     initVariables();
     initWindow();
     initEnemies();
+    initView();
 }
 
 Game::~Game(){
@@ -51,8 +52,6 @@ void Game::update()
         if (playerBounds.findIntersection(enemyBounds) &&
             e->returnAttackTime() > GameConstants::ENEMY_HIT_FRAME){
             player->getDamaged(GameConstants::ENEMY_DAMAGE);
-            
-            std::cout << player->returnHealth() << std::endl;
 
             e->restartAttackTime();
             if (player->returnHealth() <= 0){
@@ -60,7 +59,11 @@ void Game::update()
             }
         }
     }
-    
+
+    view.setCenter(player->returnPosition());
+
+    window->setView(view);
+
     player->update();
 }
 
@@ -107,4 +110,13 @@ void Game::initWindow()
     // window.setVerticalSyncEnabled(true); it enables the fps to be the same as the refreshing rate of the monitor
 
     window->setFramerateLimit(60);
+    
+}
+
+void Game::initView()
+{
+    view = window->getDefaultView();
+
+    window->setView(view);
+
 }

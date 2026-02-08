@@ -23,6 +23,7 @@ void Player::initShape()
     shape.setSize(sf::Vector2f(50.f, 50.f));
     shape.setFillColor(sf::Color::Green);
     shape.setPosition(sf::Vector2f(GameConstants::HEIGHT / 2, GameConstants::WIDTH / 2));
+    shape.setOrigin({shape.getSize().x / 2.f, shape.getSize().y / 2.f});
 }
 
 void Player::initHealthBar()
