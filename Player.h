@@ -19,8 +19,16 @@ class Player {
         sf::Rect<float> returnBounds();
 
     private:
-        sf::RectangleShape shape;
-        void initShape();
+        sf::RectangleShape hitBox;
+
+        // Texture
+        sf::Texture texture;
+
+        // Sprite
+        sf::Sprite sprite;
+        void updateAppearance();
+
+        void initliazeHitbox();
         float speed;
 
         // Health

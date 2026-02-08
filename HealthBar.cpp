@@ -12,7 +12,7 @@ HealthBar::HealthBar(float health, Player* player){
     this->setOutlineColor({110, 14, 8});
     this->setOutlineThickness(3.f);
     this->setOrigin(this->getGeometricCenter());
-    this->setPosition({playerPointer->returnPosition().x , playerPointer->returnPosition().y + 200});
+    this->setPosition({playerPointer->returnPosition().x, playerPointer->returnPosition().y + 200});
     initBackground();
 }
 
@@ -33,7 +33,7 @@ void HealthBar::updateHealth(float health)
 
 void HealthBar::update()
 {
-    this->setPosition({playerPointer->returnPosition().x , playerPointer->returnPosition().y + 200});
+    this->setPosition({playerPointer->returnPosition().x, playerPointer->returnPosition().y + 250});
     background.setPosition(this->getPosition());
 }
 

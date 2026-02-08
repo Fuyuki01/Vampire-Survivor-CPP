@@ -17,5 +17,6 @@ namespace GameConstants{
     // Player
     constexpr float SPEED = 5.f;
     constexpr float PLAYER_HEALT = 100.f;
+    constexpr float PLAYER_SIZE = 64.f;
 
 }

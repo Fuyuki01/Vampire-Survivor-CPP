@@ -18,7 +18,6 @@ Enemy_Troll::Enemy_Troll(Player *player): Enemy(player)
 
 void Enemy_Troll::updateAppearance()
 {
-    texture.setSmooth(true);
     sprite.setTexture(texture, true);
 
     sf::Vector2u textureSize = texture.getSize();
