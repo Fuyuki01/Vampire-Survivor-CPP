@@ -13,6 +13,7 @@ Game::Game(){
 
 Game::~Game(){
     delete window;
+    
     for (auto* e: enemies){
         delete e;
     }

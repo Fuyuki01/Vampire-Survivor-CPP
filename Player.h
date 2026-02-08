@@ -1,11 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class HealthBar;
+
 class Player {
     public:
         // Constructors
         Player();
-        ~Player() = default;
+        ~Player();
 
         void update();
         void render(sf::RenderTarget* target);
@@ -20,5 +22,9 @@ class Player {
         sf::RectangleShape shape;
         void initShape();
         float speed;
+
+        // Health
         float health;
+        HealthBar* healthBar;
+        void initHealthBar();
 };

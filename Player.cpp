@@ -1,14 +1,20 @@
 #include "Player.h"
 #include "Constants.h"
+#include "HealthBar.h"
 
 // Constructor
 Player::Player()
 {
     speed = GameConstants::SPEED;
     health = GameConstants::PLAYER_HEALT;
+    initHealthBar();
     initShape();
 }
 
+Player::~Player()
+{
+    delete healthBar;
+}
 
 // draw the player shape
 void Player::initShape()
@@ -19,14 +25,23 @@ void Player::initShape()
     shape.setPosition(sf::Vector2f(GameConstants::HEIGHT / 2, GameConstants::WIDTH / 2));
 }
 
+void Player::initHealthBar()
+{
+    healthBar = new HealthBar(health);
+}
+
 void Player::update()
 {
-    keyInputs();
+    if (health > 0){  
+        keyInputs();
+        healthBar->updateHealth(health);
+    }
 }
 
 void Player::render(sf::RenderTarget* target)
 {
     target->draw(this->shape);
+    healthBar->render(target);
 }
 
 sf::Vector2f Player::returnPosition(){
