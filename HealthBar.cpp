@@ -1,8 +1,9 @@
 #include "HealthBar.h"
 #include "Constants.h"
+#include "Player.h"
 
-HealthBar::HealthBar(float health)
-{   
+HealthBar::HealthBar(float health, Player* player){   
+    playerPointer = player;
     healthSize.x = GameConstants::HEIGHT / 400.f;
     healthSize.y = GameConstants::WIDTH / 20.f;
     
@@ -11,7 +12,7 @@ HealthBar::HealthBar(float health)
     this->setOutlineColor({110, 14, 8});
     this->setOutlineThickness(3.f);
     this->setOrigin(this->getGeometricCenter());
-    this->setPosition({400, 500});
+    this->setPosition({playerPointer->returnPosition().x , playerPointer->returnPosition().y + 200});
     initBackground();
 }
 
@@ -28,6 +29,12 @@ void HealthBar::updateHealth(float health)
         this->setSize({0, 0});
     }
 
+}
+
+void HealthBar::update()
+{
+    this->setPosition({playerPointer->returnPosition().x , playerPointer->returnPosition().y + 200});
+    background.setPosition(this->getPosition());
 }
 
 void HealthBar::render(sf::RenderTarget* target)

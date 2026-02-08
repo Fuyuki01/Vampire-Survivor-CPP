@@ -28,7 +28,7 @@ void Player::initShape()
 
 void Player::initHealthBar()
 {
-    healthBar = new HealthBar(health);
+    healthBar = new HealthBar(health, this);
 }
 
 void Player::update()
@@ -36,6 +36,7 @@ void Player::update()
     if (health > 0){  
         keyInputs();
         healthBar->updateHealth(health);
+        healthBar->update();
     }
 }
 
