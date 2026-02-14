@@ -17,6 +17,7 @@ add_executable(game
     Map.cpp
     Enemy.cpp
     Enemy_Troll.cpp
+    Enemy_Goblin.cpp
     MainMenu.cpp
     HealthBar.cpp
 )

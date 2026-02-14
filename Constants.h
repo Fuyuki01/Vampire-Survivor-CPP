@@ -11,8 +11,11 @@ namespace GameConstants{
     constexpr float TILE_SIZE = 64.f;
 
     // Enemy
+        // Enemy Speed
     constexpr float ENEMYSPEED = 3.f;
     constexpr float TROLL_SPEED = 2.5;
+    constexpr float GOBLIN_SPEED = 3.f;
+
     constexpr float ENEMYINITPOSITION_X = 100.f;
     constexpr float ENEMYINITPOSITION_Y = 100.f;
     constexpr float ENEMYSIZE = 64.f;

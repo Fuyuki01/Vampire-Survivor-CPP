@@ -1,21 +1,21 @@
-#include "Enemy_Troll.h"
+#include "Enemy_Goblin.h"
 #include "Constants.h"
 #include "Player.h"
 #include <iostream>
 
-Enemy_Troll::Enemy_Troll(Player *player): Enemy(player)
+Enemy_Goblin::Enemy_Goblin(Player* player): Enemy(player)
 {
-    if (!texture.loadFromFile("../assets/troll.png"))
+    if (!texture.loadFromFile("../assets/goblin_idle/goblin_idle_anim_f0.png"))
     {
         std::cout << "FAILED TO LOAD undead.png\n";
     }
-    
-    enemySpeed = GameConstants::TROLL_SPEED;
+
+    enemySpeed = GameConstants::GOBLIN_SPEED;
 
     updateAppearance();
 }
 
-void Enemy_Troll::updateAppearance()
+void Enemy_Goblin::updateAppearance()
 {
     sprite.setTexture(texture, true);
 
@@ -26,6 +26,6 @@ void Enemy_Troll::updateAppearance()
             GameConstants::ENEMYSIZE / textureSize.y}
         );
     }
-    
+
     sprite.setPosition(hitBox.getPosition());
 }

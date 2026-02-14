@@ -4,9 +4,10 @@
 
 class Player;
 
-class Enemy_Troll: public Enemy{
+class Enemy_Goblin: public Enemy{
     public:
-        explicit Enemy_Troll(Player* player);
+        explicit Enemy_Goblin(Player* player);
 
         void updateAppearance() override;
+
 };

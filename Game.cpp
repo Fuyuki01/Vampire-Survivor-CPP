@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "Player.h"
 #include "Enemy_Troll.h"
+#include "Enemy_Goblin.h"
 #include "Map.h"
 #include <iostream>
 
@@ -103,7 +104,7 @@ void Game::initVariables()
 
 void Game::initEnemies()
 {
-    Enemy* enemy = new Enemy_Troll(player);
+    Enemy* enemy = new Enemy_Goblin(player);
     enemies.push_back(enemy);    
 }
 
