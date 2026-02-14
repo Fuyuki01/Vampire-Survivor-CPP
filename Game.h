@@ -3,6 +3,7 @@
 
 class Enemy;
 class Player;
+class Map;
 
 class Game{
     public:
@@ -30,10 +31,13 @@ class Game{
         // Camera
         sf::View view;
 
+        // Map
+        Map* worldMap;
+
         // Private Functions
         void initVariables();
         void initEnemies();
         void initWindow();
         void initView();
-
+        void initMap();
 };

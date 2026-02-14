@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Constants.h"
 #include "HealthBar.h"
+#include "Sword.h"
 #include <iostream>
 
 // Constructor
@@ -12,8 +13,8 @@ Player::Player(): texture(), sprite(texture)
     
     speed = GameConstants::SPEED;
     health = GameConstants::PLAYER_HEALT;
-    
-    initHealthBar();
+
+    initliazeHealthBar();
     initliazeHitbox();
     updateAppearance();
 }
@@ -49,9 +50,13 @@ void Player::initliazeHitbox()
     hitBox.setOrigin({hitBox.getSize().x / 2.f, hitBox.getSize().y / 2.f});
 }
 
-void Player::initHealthBar()
+void Player::initliazeHealthBar()
 {
     healthBar = new HealthBar(health, this);
+}
+
+void Player::attack(){
+    
 }
 
 void Player::update()

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 class HealthBar;
+class Sword;
 
 class Player {
     public:
@@ -19,8 +20,6 @@ class Player {
         sf::Rect<float> returnBounds();
 
     private:
-        sf::RectangleShape hitBox;
-
         // Texture
         sf::Texture texture;
 
@@ -28,11 +27,22 @@ class Player {
         sf::Sprite sprite;
         void updateAppearance();
 
+        // Hitbox
         void initliazeHitbox();
+        sf::RectangleShape hitBox;
+
+        // Speed
         float speed;
 
         // Health
         float health;
         HealthBar* healthBar;
-        void initHealthBar();
+        void initliazeHealthBar();
+
+        // Attack
+        float playerDamage;
+        void attack();
+
+        // Weapon
+        Sword* basicSword;
 };

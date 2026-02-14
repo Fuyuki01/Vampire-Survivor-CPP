@@ -47,6 +47,7 @@ void Enemy::advanceposition()
 {
     sf::Vector2f direction = decidedirection();
     float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+    
     if (length != 0.f){
         direction /= length;
     }

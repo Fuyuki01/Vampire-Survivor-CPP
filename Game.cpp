@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "Player.h"
 #include "Enemy_Troll.h"
+#include "Map.h"
 #include <iostream>
 
 Game::Game(){
@@ -10,6 +11,7 @@ Game::Game(){
     initWindow();
     initEnemies();
     initView();
+    initMap();
 }
 
 Game::~Game(){
@@ -70,6 +72,8 @@ void Game::update()
 void Game::render()
 {   
     window->clear(sf::Color::Black);
+
+    worldMap->render(window);
     
     for (auto* e : enemies){
         e->render(window);
@@ -94,7 +98,7 @@ void Game::initVariables()
     player = new Player();
     videoMode.size.x = GameConstants::HEIGHT;
     videoMode.size.y = GameConstants::WIDTH;
-
+    
 }
 
 void Game::initEnemies()
@@ -119,4 +123,9 @@ void Game::initView()
 
     window->setView(view);
 
+}
+
+void Game::initMap()
+{
+    worldMap = new Map();
 }
