@@ -15,7 +15,7 @@ Map::Map(): map(sf::PrimitiveType::Triangles, GameConstants::MAP_HEIGHT * GameCo
 
 Map::~Map()
 {
-
+    
 }
 
 void Map::render(sf::RenderTarget* target)

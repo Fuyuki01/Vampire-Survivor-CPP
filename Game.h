@@ -28,6 +28,10 @@ class Game{
         sf::VideoMode videoMode;
         Player* player;
 
+        // Enemy Spawn
+        sf::Clock enemySpawnerTime;
+        void enemyAutomaticSpawn();
+        
         // Camera
         sf::View view;
 

@@ -38,7 +38,6 @@ class Enemy{
 
         // Clock
         sf::Clock attackClock;
-        float hitFrame;
 
         // Helper Functions
         sf::Vector2f decidedirection();

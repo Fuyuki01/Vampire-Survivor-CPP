@@ -3,7 +3,7 @@
 #include "Constants.h"
 #include <cmath>
 
-Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED), hitFrame(0),
+Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED),
 enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
 enemySize({GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE}), playerPointer(player), texture(), sprite(texture)
 {
