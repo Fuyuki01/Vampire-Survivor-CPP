@@ -26,6 +26,7 @@ class Player {
         // Sprite
         sf::Sprite sprite;
         void updateAppearance();
+        bool facingRight = true;
 
         // Hitbox
         void initliazeHitbox();

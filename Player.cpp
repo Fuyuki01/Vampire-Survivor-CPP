@@ -105,12 +105,29 @@ void Player::keyInputs()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A))
     {
         hitBox.move(sf::Vector2f(-speed, 0.f));
-        sprite.setPosition(hitBox.getPosition());
+        sprite.setPosition(hitBox.getPosition()); 
+        
+        if (facingRight){  
+            sf::Vector2u textureSize = texture.getSize();
+            sprite.setScale(
+                {-(GameConstants::PLAYER_SIZE / textureSize.x),
+                GameConstants::PLAYER_SIZE / textureSize.y}
+            );
+            facingRight = false;    
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D))
     {
         hitBox.move(sf::Vector2f(speed, 0.f));
         sprite.setPosition(hitBox.getPosition());
+        if (!facingRight){   
+            sf::Vector2u textureSize = texture.getSize();
+            sprite.setScale(
+                {(GameConstants::PLAYER_SIZE / textureSize.x),
+                GameConstants::PLAYER_SIZE / textureSize.y}
+            );
+            facingRight = true;
+        }
     }
 }
 

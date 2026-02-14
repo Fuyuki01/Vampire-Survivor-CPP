@@ -9,7 +9,12 @@ public:
     bool run();
 
 private:
+    // window
+    sf::RenderWindow* window;
+
     void updateSelectionVisual();
+    
+    void initwindow();
 
     // Variables
     sf::Font font;

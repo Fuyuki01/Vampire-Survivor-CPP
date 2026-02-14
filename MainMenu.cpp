@@ -10,6 +10,9 @@ MainMenu::MainMenu()
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")) {
         std::cout << "Can't find the font file MinimalPixelFont.TTF\n";
     }
+    
+    // Initialize Window
+    initwindow();
 
     // Initialize menu items
     items.clear();
@@ -40,16 +43,32 @@ void MainMenu::updateSelectionVisual()
     }
 }
 
+void MainMenu::initwindow()
+{
+
+    window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Main Menu");
+    window->setFramerateLimit(60);
+
+    auto desktop = sf::VideoMode::getDesktopMode();
+    auto windowSize = window->getSize();
+
+    sf::Vector2i desktopSize(static_cast<int>(desktop.size.x), static_cast<int>(desktop.size.y));
+    sf::Vector2i windowSizes(static_cast<int>(windowSize.x), static_cast<int>(windowSize.y));
+
+    window->setPosition(sf::Vector2i(
+    ((desktopSize.x - windowSizes.x) / 2),
+    ((desktopSize.y - windowSizes.y) / 2)
+    ));
+}
+
 // Main loop for the main menu
 bool MainMenu::run()
 {
-    sf::RenderWindow window(sf::VideoMode(sf::Vector2u(width, height)), "Main Menu");
-    window.setFramerateLimit(60);
 
-        while (window.isOpen()) {
-        while (auto event = window.pollEvent()) {
+        while (window->isOpen()) {
+        while (auto event = window->pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
-                window.close();
+                window->close();
                 break;
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
@@ -67,11 +86,11 @@ bool MainMenu::run()
                     break;
 
                 case sf::Keyboard::Scancode::Enter:
-                    window.close();
+                    window->close();
                     return selected == 0;
 
                 case sf::Keyboard::Scancode::Escape:
-                    window.close();
+                    window->close();
                     return false;
 
                 default:
@@ -80,9 +99,9 @@ bool MainMenu::run()
             }
         }
 
-        window.clear(sf::Color::Black);
-        for (auto &item : items) window.draw(item);
-        window.display();
+        window->clear(sf::Color::Black);
+        for (auto &item : items) window->draw(item);
+        window->display();
     }
 
     return false;
