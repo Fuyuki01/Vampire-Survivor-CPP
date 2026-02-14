@@ -7,7 +7,7 @@ MainMenu::MainMenu()
     width = GameConstants::WIDTH;
     height = GameConstants::HEIGHT;
 
-    if (!font.openFromFile("MinimalPixelFont.TTF")) {
+    if (!font.openFromFile("../assets/MinimalPixelFont.TTF")) {
         std::cout << "Can't find the font file MinimalPixelFont.TTF\n";
     }
 

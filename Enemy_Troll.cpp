@@ -6,12 +6,12 @@
 
 Enemy_Troll::Enemy_Troll(Player *player): Enemy(player)
 {
-    if (!texture.loadFromFile("troll.png"))
+    if (!texture.loadFromFile("../assets/troll.png"))
     {
         std::cout << "FAILED TO LOAD undead.png\n";
     }
     
-    enemySpeed = GameConstants::UNDEAD_SPEED;
+    enemySpeed = GameConstants::TROLL_SPEED;
 
     updateAppearance();
 }

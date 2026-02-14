@@ -12,7 +12,7 @@ namespace GameConstants{
 
     // Enemy
     constexpr float ENEMYSPEED = 3.f;
-    constexpr float UNDEAD_SPEED = 2.5;
+    constexpr float TROLL_SPEED = 2.5;
     constexpr float ENEMYINITPOSITION_X = 100.f;
     constexpr float ENEMYINITPOSITION_Y = 100.f;
     constexpr float ENEMYSIZE = 64.f;

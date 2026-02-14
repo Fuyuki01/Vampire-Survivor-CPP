@@ -4,7 +4,7 @@
 
 Sword::Sword(Player *player, const float damage): Weapon(player, damage)
 {
-    if (!texture.loadFromFile("weapon_knight_sword.png")){
+    if (!texture.loadFromFile("../assets/weapon_knight_sword.png")){
         std::cout << "FAILED TO LOAD undead.png\n";
     }
 

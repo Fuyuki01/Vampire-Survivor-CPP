@@ -7,7 +7,7 @@
 // Constructor
 Player::Player(): texture(), sprite(texture)
 {
-    if (!texture.loadFromFile("knight_f_idle_anim_f0.png")){
+    if (!texture.loadFromFile("../assets/knight_f_idle_anim_f0.png")){
         std::cout << "FAILED TO LOAD undead.png\n";
     }
     

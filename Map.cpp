@@ -5,7 +5,7 @@
 
 Map::Map(): map(sf::PrimitiveType::Triangles, GameConstants::MAP_HEIGHT * GameConstants::MAP_WIDTH * 6) 
 {
-    if (!floor1.loadFromFile("forest_.png"))
+    if (!floor1.loadFromFile("../assets/forest_.png"))
     {
         std::cout << "Failed to load floor_1.png\n";
     }
