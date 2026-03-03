@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 
 class MainMenu {
@@ -11,10 +12,12 @@ public:
 private:
     // window
     sf::RenderWindow* window;
-
+    sf::Music music;
+    
     void updateSelectionVisual();
     
     void initwindow();
+
 
     // Variables
     sf::Font font;

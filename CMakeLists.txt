@@ -9,6 +9,7 @@ file(GLOB ASSETS "../assets/*")
 file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR})
 
 find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System)
+find_package(SFML 3.0 COMPONENTS Audio Graphics Window System)
 
 add_executable(game
     main.cpp
@@ -23,10 +24,12 @@ add_executable(game
     XPBar.cpp
     Weapon.cpp
     Sword.cpp
+    GameOver.cpp
 )
 
-target_link_libraries(game
+target_link_libraries(game PRIVATE
     SFML::Graphics
     SFML::Window
     SFML::System
+    SFML::Audio
 )

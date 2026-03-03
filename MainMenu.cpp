@@ -8,9 +8,17 @@ MainMenu::MainMenu()
     height = GameConstants::HEIGHT;
 
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")) {
-        std::cout << "Can't find the font file MinimalPixelFont.TTF\n";
+        std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";
     }
-    
+
+    if (!music.openFromFile("../assets/theme.wav")) {
+        std::cerr << "Can't find the sound file theme.wav\n";
+        return;
+    }
+    music.setLooping(true);
+    music.setVolume(30);
+    music.play();
+
     // Initialize Window
     initwindow();
 
