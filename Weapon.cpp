@@ -19,6 +19,11 @@ void Weapon::update()
         attackDuration.restart();
         attack();
     }
+
+    if (active){
+        updateAnimation();
+    }
+
     if (attackDuration.getElapsedTime().asSeconds() >= durationTime and active){
         active = false;
         cooldown.restart();

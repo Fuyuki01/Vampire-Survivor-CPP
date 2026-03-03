@@ -10,11 +10,18 @@ class Sword: public Weapon{
 
         void updateAppearance() override;
 
+    protected:
+        void updateAnimation() override;
+
     private:
         void attack() override;
 
         void initializeHitbox() override;
 
+        void updateSwing();
+
         sf::Vector2f decideAttackPosition();
+
+        sf::Angle swingAngle;
 
 };

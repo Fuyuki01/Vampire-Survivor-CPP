@@ -20,19 +20,52 @@ int Sword::returnDamage()
 void Sword::updateAppearance()
 {
     sprite.setTexture(texture, true);
-    
+
     sf::Vector2u textureSize = texture.getSize();
-    
-    sprite.setOrigin({textureSize.x / 2.f, textureSize.y / 2.f});
-    
+
+    sprite.setOrigin({textureSize.x / 2.f, static_cast<float>(textureSize.y)});
+
     if (textureSize.x > 0 && textureSize.y > 0) {
         sprite.setScale(
             {GameConstants::SWORD_SIZE / textureSize.x,
             GameConstants::SWORD_SIZE / textureSize.y}
         );
     }
-    
-    sprite.setPosition(hitBox.getPosition());
+
+}
+
+void Sword::updateAnimation()
+{
+    sf::Vector2f playerPosition = playerPointer->returnPosition();
+    sf::Vector2f anchorPosition;
+
+    float horizontalOffset = GameConstants::PLAYER_SIZE / 2;
+
+    float verticalOffset = 0;
+
+    if(playerPointer->returnFacingRight()){
+        anchorPosition = {playerPosition.x + horizontalOffset, playerPosition.y};
+
+        float start = 0;
+        float end = 150;
+
+        float progress = attackDuration.getElapsedTime().asSeconds() / durationTime;
+        if (progress > 1) progress = 1;
+        swingAngle = sf::degrees(start + progress * (end - start));
+    }else{
+        anchorPosition = {playerPosition.x - horizontalOffset, playerPosition.y};      
+        float start = 0;
+        float end = -150;
+
+        float progress = attackDuration.getElapsedTime().asSeconds() / durationTime;
+        if (progress > 1) progress = 1;
+        swingAngle = sf::degrees(start + progress * (end - start));
+    }
+
+    sprite.setRotation(swingAngle);
+    sprite.setPosition(anchorPosition);
+    hitBox.setRotation(swingAngle);
+    hitBox.setPosition(anchorPosition);
 }
 
 void Sword::attack()
@@ -48,11 +81,13 @@ sf::Vector2f Sword::decideAttackPosition()
 {
     sf::Vector2f playerPosition = playerPointer->returnPosition();
 
+    float horizontalOffset = GameConstants::PLAYER_SIZE / 2;
+
     if(playerPointer->returnFacingRight()){
-        sf::Vector2f hitBoxPosition = {playerPosition.x + 10, playerPosition.y};
+        sf::Vector2f hitBoxPosition = {playerPosition.x + horizontalOffset, playerPosition.y};
         return hitBoxPosition;
     }else{
-        sf::Vector2f hitBoxPosition = {playerPosition.x - 10, playerPosition.y};
+        sf::Vector2f hitBoxPosition = {playerPosition.x - horizontalOffset, playerPosition.y};
         return hitBoxPosition;
     }
 }
@@ -60,10 +95,20 @@ sf::Vector2f Sword::decideAttackPosition()
 void Sword::initializeHitbox()
 {
     sf::Vector2u size = texture.getSize();
+
     sf::Vector2f textureSize = {
         static_cast<float>(size.x), static_cast<float>(size.y)
     };
+
+    hitBox.setOrigin({textureSize.x / 2.f, textureSize.y});
+
+    if (textureSize.x > 0 && textureSize.y > 0) {
+        hitBox.setScale(
+            {GameConstants::SWORD_SIZE / textureSize.x,
+            GameConstants::SWORD_SIZE / textureSize.y}
+        );
+    }
+
     hitBox.setSize(textureSize);
     hitBox.setFillColor(sf::Color::Blue);
-    hitBox.setPosition({playerPointer->returnPosition().x + 5, playerPointer->returnPosition().y + 5});
 }

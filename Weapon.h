@@ -27,6 +27,9 @@ class Weapon{
 
         // Sprite
         sf::Sprite sprite;
+
+        // Animation
+        virtual void updateAnimation() = 0;
         
         // Hitbox
         virtual void initializeHitbox() = 0;
