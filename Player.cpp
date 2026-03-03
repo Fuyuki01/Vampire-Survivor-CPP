@@ -16,6 +16,7 @@ Player::Player(): texture(), sprite(texture)
 
     initliazeHealthBar();
     initliazeHitbox();
+    initWeapon();
     updateAppearance();
 }
 
@@ -41,6 +42,11 @@ void Player::updateAppearance(){
     sprite.setPosition(hitBox.getPosition());
 }
 
+bool Player::returnFacingRight()
+{
+    return facingRight;
+}
+
 // draw the player shape
 void Player::initliazeHitbox()
 {
@@ -55,8 +61,14 @@ void Player::initliazeHealthBar()
     healthBar = new HealthBar(health, this);
 }
 
-void Player::attack(){
-    
+void Player::initWeapon()
+{
+    weapons.push_back(std::make_unique<Sword>(this, GameConstants::BASIC_SWORD_DAMAGE));
+}
+
+const std::vector<std::unique_ptr<Weapon>>& Player::getWeapons() const
+{
+    return weapons;
 }
 
 void Player::update()
@@ -65,6 +77,11 @@ void Player::update()
         keyInputs();
         healthBar->updateHealth(health);
         healthBar->update();
+
+        for (auto& weapon : weapons){
+            weapon->update();
+        }
+        
     }
 }
 
@@ -72,6 +89,11 @@ void Player::render(sf::RenderTarget* target)
 {
     target->draw(sprite);
     healthBar->render(target);
+    
+    for (auto& weapon : weapons){
+        weapon->render(target);
+    }
+
 }
 
 sf::Vector2f Player::returnPosition(){
@@ -88,21 +110,20 @@ float Player::returnHealth()
     return health;
 }
 
-
 void Player::keyInputs()
 {
     // Movement
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
     {
         hitBox.move(sf::Vector2f(0.f, -speed));
         sprite.setPosition(hitBox.getPosition());
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
     {
         hitBox.move(sf::Vector2f(0.f, speed));
         sprite.setPosition(hitBox.getPosition());
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
     {
         hitBox.move(sf::Vector2f(-speed, 0.f));
         sprite.setPosition(hitBox.getPosition()); 
@@ -116,7 +137,7 @@ void Player::keyInputs()
             facingRight = false;    
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
     {
         hitBox.move(sf::Vector2f(speed, 0.f));
         sprite.setPosition(hitBox.getPosition());

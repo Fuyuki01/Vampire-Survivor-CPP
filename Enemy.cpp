@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Constants.h"
 #include <cmath>
+#include <iostream>
 
 Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED),
 enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
@@ -34,6 +35,12 @@ void Enemy::restartAttackTime()
     attackClock.restart();
 }
 
+bool Enemy::isDead()
+{
+    if (enemyHealth == 0) return true;
+    else return false;
+}
+
 sf::Vector2f Enemy::decidedirection()
 {
     sf::Vector2f playerPosition = playerPointer->returnPosition();
@@ -57,7 +64,14 @@ void Enemy::advanceposition()
     sprite.setPosition(hitBox.getPosition());
 }
 
-void Enemy::initliazeHitbox(){
+void Enemy::getDamaged(float damage)
+{
+    enemyHealth -= damage;
+}
+
+
+void Enemy::initliazeHitbox()
+{
     hitBox.setSize(enemySize);
     hitBox.setFillColor(sf::Color::Red);
     hitBox.setPosition(enemyInitPosition);

@@ -11,6 +11,7 @@ Enemy_Goblin::Enemy_Goblin(Player* player): Enemy(player)
     }
 
     enemySpeed = GameConstants::GOBLIN_SPEED;
+    enemyHealth = GameConstants::GOBLIN_HEALTH;
 
     updateAppearance();
 }

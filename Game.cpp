@@ -5,13 +5,13 @@
 #include "Enemy_Troll.h"
 #include "Enemy_Goblin.h"
 #include "Map.h"
+#include "Weapon.h"
 #include <iostream>
 #include <random>
 
 Game::Game(){
     initVariables();
     initWindow();
-    initEnemies();
     initView();
     initMap();
 }
@@ -50,18 +50,37 @@ void Game::update()
 {
     pollevents();
     
-    for (auto* e : enemies){
-        e->update();
+    for (auto* enemy : enemies){
+        enemy->update();
         sf::Rect<float> playerBounds = player->returnBounds();
-        sf::Rect<float> enemyBounds = e->returnBounds();
+        sf::Rect<float> enemyBounds = enemy->returnBounds();
 
         if (playerBounds.findIntersection(enemyBounds) &&
-            e->returnAttackTime() > GameConstants::ENEMY_HIT_FRAME){
+            enemy->returnAttackTime() > GameConstants::ENEMY_HIT_FRAME){
             player->getDamaged(GameConstants::ENEMY_DAMAGE);
 
-            e->restartAttackTime();
+            enemy->restartAttackTime();
             if (player->returnHealth() <= 0){
                 window->close();
+            }
+        }
+        const auto& weaponvector = player->getWeapons();
+        for (const auto& weapon : weaponvector){
+            if (weapon->isActive()){
+                auto weaponboundaries = weapon->returnBounds();
+                if (weaponboundaries.findIntersection(enemyBounds)){
+                    enemy->getDamaged(weapon->returnDamage());
+                }
+            }
+        }
+        for (size_t i = 0; i < enemies.size(); ){
+            Enemy* enemy = enemies[i];
+
+            if (enemy->isDead()){
+                delete enemy;
+                enemies.erase(enemies.begin() + i);
+            }else{
+                ++i;
             }
         }
     }
@@ -128,17 +147,13 @@ void Game::initVariables()
     
 }
 
-void Game::initEnemies()
-{
-    Enemy* enemy = new Enemy_Goblin(player);
-    enemies.push_back(enemy);    
-}
-
 void Game::initWindow()
 {
     window = new sf::RenderWindow(videoMode, "Dark lords", sf::Style::Default);
+    
+    window->requestFocus();
 
-    auto desktop = sf::VideoMode::getDesktopMode();
+    auto desktop = sf::VideoMode::getDesktopMode(); 
     auto windowSize = window->getSize();
 
     sf::Vector2i desktopSize(static_cast<int>(desktop.size.x), static_cast<int>(desktop.size.y));

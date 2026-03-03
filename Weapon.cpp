@@ -2,22 +2,42 @@
 #include "Player.h"
 
 Weapon::Weapon(Player *player, const float damage): texture(), sprite(texture), damage(damage){
-
+    playerPointer = player;
+    cooldownTime = 2.f;
+    durationTime = 2.f;
+    attackAnimationTime = durationTime;
+    active = false;
+    
+    cooldown.restart();
+    attackDuration.restart();
 }
 
 void Weapon::update()
 {
-
+    if (cooldown.getElapsedTime().asSeconds() >= cooldownTime and !active){
+        active = true;
+        attackDuration.restart();
+        attack();
+    }
+    if (attackDuration.getElapsedTime().asSeconds() >= durationTime and active){
+        active = false;
+        cooldown.restart();
+    }
 }
 
-void Weapon::render(sf::RenderTarget* target)
+void Weapon::render(sf::RenderTarget *target)
 {
-    target->draw(sprite);
+    if (active){
+        target->draw(sprite);
+    }
 }
 
-void Weapon::initliazeHitbox()
+sf::Rect<float> Weapon::returnBounds()
 {
-    hitBox.setSize({texture.getSize().x, texture.getSize().y});
-    hitBox.setFillColor(sf::Color::Blue);
-    hitBox.setPosition({playerPointer->returnPosition().x + 5, playerPointer->returnPosition().y + 5});
+    return hitBox.getGlobalBounds();
+}
+
+bool Weapon::isActive() const
+{
+    return active;
 }

@@ -1,8 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class HealthBar;
-class Sword;
+class Weapon;
 
 class Player {
     public:
@@ -18,6 +19,8 @@ class Player {
         float returnHealth();
         sf::Vector2f returnPosition();
         sf::Rect<float> returnBounds();
+        const std::vector<std::unique_ptr<Weapon>>& getWeapons() const;
+        bool returnFacingRight();
 
     private:
         // Texture
@@ -45,5 +48,7 @@ class Player {
         void attack();
 
         // Weapon
-        Sword* basicSword;
+        std::vector<std::unique_ptr<Weapon>> weapons;
+        void initWeapon();
+
 };

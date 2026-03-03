@@ -14,6 +14,7 @@ namespace GameConstants{
     constexpr float SPEED = 5.f;
     constexpr float PLAYER_HEALT = 300.f;
     constexpr float PLAYER_SIZE = 64.f;
+    constexpr float BASE_ATTACK_SPEED = 4.f;
 
     // Enemy
         // Enemy Speed
@@ -27,7 +28,8 @@ namespace GameConstants{
     constexpr float ENEMYSIZE = 64.f;
     constexpr float ENEMY_DAMAGE = 20.f;
     constexpr float ENEMY_HIT_FRAME = 1.f;
-    constexpr float TROLL_HEALTH = 100;
+    constexpr float TROLL_HEALTH = 300;
+    constexpr float GOBLIN_HEALTH = 100;
 
 
     // Sword

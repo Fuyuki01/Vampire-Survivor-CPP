@@ -13,6 +13,8 @@ class Enemy{
 
         virtual void updateAppearance() = 0;
 
+        void getDamaged(float damage); 
+
         void initliazeHitbox();
     
         sf::Rect<float> returnBounds();
@@ -20,12 +22,15 @@ class Enemy{
         float returnAttackTime();
         void restartAttackTime();
 
+        bool isDead();
+
     protected:
         // Player pointer
         Player* playerPointer;
         
         // Variables
         float enemySpeed;
+        float enemyHealth;
         sf::Vector2f enemySize;
         sf::Vector2f enemyInitPosition;
 

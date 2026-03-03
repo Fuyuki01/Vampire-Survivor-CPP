@@ -20,6 +20,8 @@ add_executable(game
     Enemy_Goblin.cpp
     MainMenu.cpp
     HealthBar.cpp
+    Weapon.cpp
+    Sword.cpp
 )
 
 target_link_libraries(game
