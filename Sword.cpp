@@ -38,7 +38,7 @@ void Sword::updateAnimation()
 {
     sf::Vector2f playerPosition = playerPointer->returnPosition();
     sf::Vector2f anchorPosition;
-
+    
     float horizontalOffset = GameConstants::PLAYER_SIZE / 2;
 
     float verticalOffset = 0;

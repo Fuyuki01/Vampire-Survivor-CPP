@@ -33,7 +33,7 @@ void HealthBar::updateHealth(float health)
 
 void HealthBar::update()
 {
-    this->setPosition({playerPointer->returnPosition().x, playerPointer->returnPosition().y + 250});
+    this->setPosition({playerPointer->returnPosition().x, playerPointer->returnPosition().y + 200});
     background.setPosition(this->getPosition());
 }
 

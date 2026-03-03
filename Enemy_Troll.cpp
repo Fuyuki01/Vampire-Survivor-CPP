@@ -12,6 +12,7 @@ Enemy_Troll::Enemy_Troll(Player *player): Enemy(player)
     
     enemySpeed = GameConstants::TROLL_SPEED;
     enemyHealth = GameConstants::TROLL_HEALTH;
+    dropableXp = GameConstants::TROLL_XP;
 
     updateAppearance();
 }

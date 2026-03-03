@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Constants.h"
 #include "HealthBar.h"
+#include "XPBar.h"
 #include "Sword.h"
 #include <iostream>
 
@@ -16,6 +17,7 @@ Player::Player(): texture(), sprite(texture)
 
     initliazeHealthBar();
     initliazeHitbox();
+    initializeXpBar();
     initWeapon();
     updateAppearance();
 }
@@ -23,6 +25,7 @@ Player::Player(): texture(), sprite(texture)
 Player::~Player()
 {
     delete healthBar;
+    delete xpBar;
 }
 
 void Player::updateAppearance(){
@@ -61,6 +64,11 @@ void Player::initliazeHealthBar()
     healthBar = new HealthBar(health, this);
 }
 
+void Player::initializeXpBar()
+{
+    xpBar = new XPBar(xp, this);
+}
+
 void Player::initWeapon()
 {
     weapons.push_back(std::make_unique<Sword>(this, GameConstants::BASIC_SWORD_DAMAGE));
@@ -77,6 +85,8 @@ void Player::update()
         keyInputs();
         healthBar->updateHealth(health);
         healthBar->update();
+        xpBar->updateXp(xp);
+        xpBar->update();
 
         for (auto& weapon : weapons){
             weapon->update();
@@ -89,6 +99,7 @@ void Player::render(sf::RenderTarget* target)
 {
     target->draw(sprite);
     healthBar->render(target);
+    xpBar->render(target);
     
     for (auto& weapon : weapons){
         weapon->render(target);

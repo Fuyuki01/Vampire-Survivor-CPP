@@ -3,6 +3,7 @@
 #include <memory>
 
 class HealthBar;
+class XPBar;
 class Weapon;
 
 class Player {
@@ -42,6 +43,11 @@ class Player {
         float health;
         HealthBar* healthBar;
         void initliazeHealthBar();
+
+        // XP
+        float xp;
+        XPBar* xpBar;
+        void initializeXpBar();
 
         // Attack
         float playerDamage;

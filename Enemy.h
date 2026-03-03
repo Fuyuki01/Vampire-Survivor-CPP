@@ -31,6 +31,7 @@ class Enemy{
         // Variables
         float enemySpeed;
         float enemyHealth;
+        float dropableXp;
         sf::Vector2f enemySize;
         sf::Vector2f enemyInitPosition;
 

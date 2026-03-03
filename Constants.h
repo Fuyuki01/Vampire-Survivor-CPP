@@ -28,9 +28,12 @@ namespace GameConstants{
     constexpr float ENEMYSIZE = 64.f;
     constexpr float ENEMY_DAMAGE = 20.f;
     constexpr float ENEMY_HIT_FRAME = 1.f;
+        // Enemy Health
     constexpr float TROLL_HEALTH = 300;
     constexpr float GOBLIN_HEALTH = 100;
-
+        // Enemy XP
+    constexpr float TROLL_XP = 50;
+    constexpr float GOBLIN_XP = 25;
 
     // Sword
     constexpr float BASIC_SWORD_DAMAGE = 20;

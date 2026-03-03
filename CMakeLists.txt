@@ -20,6 +20,7 @@ add_executable(game
     Enemy_Goblin.cpp
     MainMenu.cpp
     HealthBar.cpp
+    XPBar.cpp
     Weapon.cpp
     Sword.cpp
 )

@@ -13,11 +13,11 @@ class XPBar: public sf::RectangleShape{
         void render(sf::RenderTarget* target);
 
     private:
-        sf::Vector2f xpSize;
+        sf::Vector2f xpBarSize;
         sf::RectangleShape background;
 
         Player* playerPointer;
 
-        void initBackgournd();
+        void initBackground(float xp);
 
 };
