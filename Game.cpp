@@ -14,6 +14,7 @@ Game::Game(){
     initWindow();
     initView();
     initMap();
+    totalDeath = false;
 }
 
 Game::~Game(){
@@ -61,7 +62,9 @@ void Game::update()
 
             enemy->restartAttackTime();
             if (player->returnHealth() <= 0){
+                totalDeath = true;
                 window->close();
+                return;
             }
         }
         const auto& weaponvector = player->getWeapons();

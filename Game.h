@@ -4,6 +4,7 @@
 class Enemy;
 class Player;
 class Map;
+class GameOver;
 
 class Game{
     public:
@@ -18,7 +19,8 @@ class Game{
         
         // Getters
         bool windowIsOpen() const;
-
+        bool isTotalDeath() const { return totalDeath; }
+        
     private:
         // Values
         std::vector<Enemy*> enemies;
@@ -44,4 +46,6 @@ class Game{
         void initWindow();
         void initView();
         void initMap();
+        bool totalDeath;
+        
 };
