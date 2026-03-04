@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class Player;
 
@@ -12,11 +13,23 @@ class XPBar: public sf::RectangleShape{
         void update();
         void render(sf::RenderTarget* target);
 
+        void showLevelUpMessage();
+        void initLevelUp();
+
     private:
         sf::Vector2f xpBarSize;
         sf::RectangleShape background;
 
+        sf::Font font;
+        std::unique_ptr<sf::Text> levelUpText;
+        bool showMessage;
+        sf::Clock messageTimer;
+        const float MESSAGE_DURATION = 2.0f;
+
         Player* playerPointer;
+
+        int height;
+        int width;
 
         void initBackground(float xp);
 

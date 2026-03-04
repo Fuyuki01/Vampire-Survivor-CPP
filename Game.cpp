@@ -76,13 +76,12 @@ void Game::update()
                 }
             }
         }
-        for (size_t i = 0; i < enemies.size(); ){
-            Enemy* enemy = enemies[i];
-
-            if (enemy->isDead()){
-                delete enemy;
+        for (size_t i = 0; i < enemies.size(); ) {
+        if (enemies[i]->isDead()) {
+            player->addXP(enemies[i]->getXpValue());
+            delete enemies[i];
                 enemies.erase(enemies.begin() + i);
-            }else{
+        } else {
                 ++i;
             }
         }

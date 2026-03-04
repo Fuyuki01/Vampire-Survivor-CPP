@@ -6,14 +6,15 @@
 #include <iostream>
 
 // Constructor
-Player::Player(): texture(), sprite(texture)
+Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(1)
 {
     if (!texture.loadFromFile("../assets/knight_f_idle_anim_f0.png")){
         std::cout << "FAILED TO LOAD undead.png\n";
     }
     
     speed = GameConstants::SPEED;
-    health = 20;
+    health = GameConstants::PLAYER_HEALTH;
+    
 
     initliazeHealthBar();
     initliazeHitbox();
@@ -79,13 +80,16 @@ const std::vector<std::unique_ptr<Weapon>>& Player::getWeapons() const
     return weapons;
 }
 
+
 void Player::update()
 {
     if (health > 0){  
         keyInputs();
         healthBar->updateHealth(health);
         healthBar->update();
-        xpBar->updateXp(xp);
+        float xpFraction = xp / maxXP;
+        if (xpFraction > 1.0f) xpFraction = 1.0f;
+        xpBar->updateXp(xpFraction);
         xpBar->update();
 
         for (auto& weapon : weapons){
@@ -166,4 +170,24 @@ void Player::keyInputs()
 void Player::getDamaged(float damage)
 {
     health -= damage;
+}
+
+void Player::addXP(float amount)
+{
+    xp += amount;
+
+    while (xp >= maxXP) {
+        xp -= maxXP;
+        levelUp();
+}
+}
+
+void Player::levelUp()
+{
+    level++;
+    maxXP *= 1.2f;
+    health += 20.0f;
+    speed += 2.0f;
+
+    xpBar->showLevelUpMessage();
 }
