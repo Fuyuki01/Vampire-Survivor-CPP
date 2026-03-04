@@ -4,7 +4,7 @@
 
 XPBar::XPBar(float xp, Player* player){
     playerPointer = player;
-    xpBarSize.x = GameConstants::HEIGHT / 400.f;
+    xpBarSize.x = GameConstants::HEIGHT / 2.f;
     xpBarSize.y = GameConstants::WIDTH / 20.f;
 
     this->setFillColor(sf::Color(0, 100, 0));
