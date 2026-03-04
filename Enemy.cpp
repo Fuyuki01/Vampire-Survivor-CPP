@@ -35,6 +35,16 @@ void Enemy::restartAttackTime()
     attackClock.restart();
 }
 
+float Enemy::returnIframeTime()
+{
+    return iFrameClock.getElapsedTime().asSeconds();
+}
+
+void Enemy::restartIframeTime()
+{
+    iFrameClock.restart();
+}
+
 bool Enemy::isDead()
 {
     if (enemyHealth == 0) return true;

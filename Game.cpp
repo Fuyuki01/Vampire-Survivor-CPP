@@ -71,8 +71,9 @@ void Game::update()
         for (const auto& weapon : weaponvector){
             if (weapon->isActive()){
                 auto weaponboundaries = weapon->returnBounds();
-                if (weaponboundaries.findIntersection(enemyBounds)){
+                if (weaponboundaries.findIntersection(enemyBounds) && enemy->returnIframeTime() > GameConstants::ENEMY_I_FRAME){
                     enemy->getDamaged(weapon->returnDamage());
+                    enemy->restartIframeTime();
                 }
             }
         }

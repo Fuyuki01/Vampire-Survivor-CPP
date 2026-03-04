@@ -22,6 +22,9 @@ class Enemy{
         float returnAttackTime();
         void restartAttackTime();
 
+        float returnIframeTime();
+        void restartIframeTime();
+
         bool isDead();
 
     protected:
@@ -44,6 +47,7 @@ class Enemy{
 
         // Clock
         sf::Clock attackClock;
+        sf::Clock iFrameClock;
 
         // Helper Functions
         sf::Vector2f decidedirection();

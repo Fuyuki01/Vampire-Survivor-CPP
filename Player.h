@@ -45,7 +45,7 @@ class Player {
         void initliazeHealthBar();
 
         // XP
-        float xp;
+        float xp = 0.f;
         XPBar* xpBar;
         void initializeXpBar();
 

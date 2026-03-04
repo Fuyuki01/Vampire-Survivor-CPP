@@ -27,7 +27,10 @@ namespace GameConstants{
     constexpr float ENEMYINITPOSITION_Y = 100.f;
     constexpr float ENEMYSIZE = 64.f;
     constexpr float ENEMY_DAMAGE = 20.f;
+        // Enemy Hit Timer
     constexpr float ENEMY_HIT_FRAME = 1.f;
+        // Enemy I frame
+    constexpr float ENEMY_I_FRAME = 0.3f;
         // Enemy Health
     constexpr float TROLL_HEALTH = 300;
     constexpr float GOBLIN_HEALTH = 100;
