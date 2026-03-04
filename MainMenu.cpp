@@ -15,27 +15,14 @@ MainMenu::MainMenu()
         std::cerr << "Can't find the sound file theme.wav\n";
         return;
     }
-    music.setLooping(true);
-    music.setVolume(30);
-    music.play();
 
+    initMusic();
+    
     // Initialize Window
     initwindow();
-
-    // Initialize menu items
-    items.clear();
-    items.emplace_back(sf::Text(font, "Play", 36));
-    items.emplace_back(sf::Text(font, "Settings", 36));
-    items.emplace_back(sf::Text(font, "Exit", 36));
-
-    // Position menu items
-    float startPosition = height / 2.f - (items.size() * 50.f) / 2.f;
-    float y = startPosition;
-    for (auto &item : items) {
-        item.setPosition(sf::Vector2f(width / 2.f, y));
-        item.setFillColor(sf::Color::White);
-        y += 50.f;
-    }
+    
+    initMenuItems();
+    
     updateSelectionVisual();
 }
 
@@ -69,11 +56,37 @@ void MainMenu::initwindow()
     ));
 }
 
+void MainMenu::initMenuItems()
+{
+    // Initialize menu items
+    items.clear();
+    items.emplace_back(sf::Text(font, "Play", 36));
+    items.emplace_back(sf::Text(font, "Settings", 36));
+    items.emplace_back(sf::Text(font, "Exit", 36));
+
+    // Position menu items
+    float startPosition = height / 2.f - (items.size() * 50.f) / 2.f;
+    float y = startPosition;
+    for (auto &item : items) {
+        item.setPosition(sf::Vector2f(width / 2.f, y));
+        item.setFillColor(sf::Color::White);
+        y += 50.f;
+    }
+}
+
+void MainMenu::initMusic()
+{
+    musicVolume = GameConstants::MUSIC_SOUND;
+    music.setLooping(true);
+    music.setVolume(musicVolume);
+    music.play();
+}
+
 // Main loop for the main menu
-bool MainMenu::run()
+int MainMenu::run()
 {
 
-        while (window->isOpen()) {
+    while (window->isOpen()) {
         while (auto event = window->pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 window->close();
@@ -95,11 +108,21 @@ bool MainMenu::run()
 
                 case sf::Keyboard::Scancode::Enter:
                     window->close();
-                    return selected == 0;
+                    if (selected == 0){
+                        // Play
+                        return 0;
+                    }else if(selected == 1){
+                        // Settings
+                        return 1;
+                    }else{
+                        // Exit
+                        return 2;
+                    }
 
                 case sf::Keyboard::Scancode::Escape:
                     window->close();
-                    return false;
+                    // Exit
+                    return 2;
 
                 default:
                     break;
@@ -112,5 +135,31 @@ bool MainMenu::run()
         window->display();
     }
 
-    return false;
+    // Exit
+    return 2;
+}
+
+void MainMenu::updateSound(int musicVolume, bool musicOn)
+{
+    if (musicOn){
+        if (music.getStatus() != sf::Music::Status::Playing){
+            music.play();
+        }
+        music.setVolume(musicVolume);
+    }
+
+    if (!musicOn){
+        if (music.getStatus() == sf::Music::Status::Playing){
+            music.stop(); 
+        }
+        
+       music.setVolume(musicVolume);
+    }
+
+    
+}
+
+int MainMenu::returnVolume()
+{
+    return musicVolume;
 }

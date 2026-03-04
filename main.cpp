@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "Game.h"
+#include "SettingMenu.h"
 #include "GameOver.h"
 
 int main() {
@@ -7,27 +8,35 @@ int main() {
 
     while (continuePlaying) {
         MainMenu menu;
-        bool playSelected = menu.run();
+        int selected = menu.run();
 
-        if (!playSelected) {
+        if (selected == 2) {
+            // Exit
             break;
+        }else if (selected == 1){
+            // Settings
+            SettingMenu setings(&menu);
+            setings.run();
         }
 
         Game game;
-        while (game.windowIsOpen()) {
-            game.update();
-            game.render();
-        }
+        if (selected == 0){
+            // Play
+            while (game.windowIsOpen()) {
+                game.update();
+                game.render();
+            }
 
-        if (game.isTotalDeath()) {
-            GameOver gameOver;
-            bool returnToMenu = gameOver.run();
+            if (game.isTotalDeath()) {
+                GameOver gameOver;
+                bool returnToMenu = gameOver.run();
 
-            if (!returnToMenu) {
-
-                break;
+                if (!returnToMenu) {
+                    break;
+                }
             }
         }
+       
     }
 
     return 0;

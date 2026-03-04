@@ -20,11 +20,12 @@ add_executable(game
     Enemy_Troll.cpp
     Enemy_Goblin.cpp
     MainMenu.cpp
+    GameOver.cpp
+    SettingMenu.cpp
     HealthBar.cpp
     XPBar.cpp
     Weapon.cpp
     Sword.cpp
-    GameOver.cpp
 )
 
 target_link_libraries(game PRIVATE

@@ -13,7 +13,7 @@ Player::Player(): texture(), sprite(texture)
     }
     
     speed = GameConstants::SPEED;
-    health = GameConstants::PLAYER_HEALT;
+    health = 20;
 
     initliazeHealthBar();
     initliazeHitbox();

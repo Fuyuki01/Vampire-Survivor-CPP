@@ -4,25 +4,31 @@
 #include <vector>
 
 class MainMenu {
-public:
-    // Constructor and main loop
-    MainMenu();
-    bool run();
+    public:
+        // Constructor and main loop
+        MainMenu();
+        int run();
 
-private:
-    // window
-    sf::RenderWindow* window;
-    sf::Music music;
-    
-    void updateSelectionVisual();
-    
-    void initwindow();
+        void updateSound(int musicVolume, bool musicOn);
 
+        int returnVolume();
 
-    // Variables
-    sf::Font font;
-    std::vector<sf::Text> items;
-    int selected = 0;
-    int width;
-    int height;
+    private:
+        // window
+        sf::RenderWindow* window;
+        sf::Music music;
+        
+        void updateSelectionVisual();
+        
+        void initwindow();
+        void initMenuItems();
+        void initMusic();
+
+        // Variables
+        sf::Font font;
+        std::vector<sf::Text> items;
+        int selected = 0;
+        int width;
+        int height;
+        int musicVolume;
 };

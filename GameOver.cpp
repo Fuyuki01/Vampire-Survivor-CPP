@@ -49,6 +49,23 @@ bool GameOver::run()
     sf::Clock clock;
     
     while (window->isOpen()) {
+        while (auto event = window->pollEvent()) {
+            if (event->is<sf::Event::Closed>()) {
+                window->close();
+                break;
+            }
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+                switch (keyPressed->scancode) {
+
+                    case sf::Keyboard::Scancode::Escape:
+                        window->close();
+                        return true;
+
+                    default:
+                        break;
+                }
+            }
+        }
 
         if (clock.getElapsedTime().asSeconds() >= 5.0f) {
             window->close();
@@ -59,7 +76,7 @@ bool GameOver::run()
         window->draw(*gameOverText);
         window->display();
     }
-
-return false;
+    
+    return false;
 
 }

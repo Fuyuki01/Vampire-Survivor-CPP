@@ -76,7 +76,10 @@ void Enemy::advanceposition()
 
 void Enemy::getDamaged(float damage)
 {
-    enemyHealth -= damage;
+    if (returnIframeTime() > GameConstants::ENEMY_I_FRAME) {
+        enemyHealth -= damage;
+        restartIframeTime();
+    }
 }
 
 

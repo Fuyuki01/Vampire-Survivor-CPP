@@ -5,6 +5,9 @@ namespace GameConstants{
     constexpr int HEIGHT = 800;
     constexpr int WIDTH = 600;
 
+    // Music
+    constexpr int MUSIC_SOUND = 30;
+
     // Map
     constexpr int MAP_HEIGHT = 160;
     constexpr int MAP_WIDTH = 160;
