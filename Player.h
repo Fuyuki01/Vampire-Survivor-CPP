@@ -22,6 +22,8 @@ class Player {
         sf::Rect<float> returnBounds();
         const std::vector<std::unique_ptr<Weapon>>& getWeapons() const;
         bool returnFacingRight();
+        void addXP(float amount);
+        int getLevel() const { return level; }
 
     private:
         // Texture
@@ -45,9 +47,12 @@ class Player {
         void initliazeHealthBar();
 
         // XP
-        float xp = 0.f;
+        int level;
+        float xp;
+        float maxXP;
         XPBar* xpBar;
         void initializeXpBar();
+        void levelUp();
 
         // Attack
         float playerDamage;

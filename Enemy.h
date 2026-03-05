@@ -26,6 +26,8 @@ class Enemy{
         void restartIframeTime();
 
         bool isDead();
+        //getter
+        float getXpValue() const { return dropableXp; }
 
     protected:
         // Player pointer

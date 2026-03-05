@@ -6,7 +6,8 @@
 
 Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED),
 enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
-enemySize({GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE}), playerPointer(player), texture(), sprite(texture)
+enemySize({GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE}), playerPointer(player),
+texture(), sprite(texture), dropableXp(0.f)
 {
     initliazeHitbox();
 }
