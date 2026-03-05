@@ -1,18 +1,16 @@
 #include "SettingMenu.h"
 #include "Constants.h"
 #include "MainMenu.h"
+#include "Settings.h"
 #include <iostream>
 
-SettingMenu::SettingMenu(MainMenu* mainMenu)
+SettingMenu::SettingMenu(Settings* settings, MainMenu* mainMenu)
 {
     width = GameConstants::WIDTH;
     height = GameConstants::HEIGHT;
 
     mainMenuPointer = mainMenu;
-
-    musicVolume = mainMenuPointer->returnVolume();
-
-    musicON = true;
+    settingsPointer = settings;
 
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")){
         std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";
@@ -27,9 +25,9 @@ SettingMenu::SettingMenu(MainMenu* mainMenu)
 void SettingMenu::initMenuItems()
 {
     items.clear();
-    items.emplace_back(sf::Text(font, "Volume: " + std::to_string(musicVolume), 36));
+    items.emplace_back(sf::Text(font, "Volume: " + std::to_string(settingsPointer->musicVolume), 36));
 
-    std::string text = std::string("Music: ") + (musicON ? "ON" : "OFF");
+    std::string text = std::string("Music: ") + (settingsPointer->musicStatus ? "ON" : "OFF");
 
     items.emplace_back(sf::Text(font, text, 36));
     items.emplace_back(sf::Text(font, "Return", 36));
@@ -70,8 +68,8 @@ void SettingMenu::run()
                     case sf::Keyboard::Scancode::A:
                     case sf::Keyboard::Scancode::Left:
                         if (selected == 0){
-                            if (musicVolume >= 1){
-                                mainMenuPointer->updateSound(--musicVolume, musicON);
+                            if (settingsPointer->musicVolume >= 1){
+                                mainMenuPointer->updateSound(--settingsPointer->musicVolume, settingsPointer->musicStatus);
                                 updateMenuItems();
                             }
                         }
@@ -80,8 +78,8 @@ void SettingMenu::run()
                     case sf::Keyboard::Scancode::D:
                     case sf::Keyboard::Scancode::Right:
                         if (selected == 0){
-                            if (musicVolume < 100){
-                                mainMenuPointer->updateSound(++musicVolume, musicON);
+                            if (settingsPointer->musicVolume < 100){
+                                mainMenuPointer->updateSound(++settingsPointer->musicVolume, settingsPointer->musicStatus);
                                 updateMenuItems();
                             }
                         }
@@ -89,13 +87,13 @@ void SettingMenu::run()
 
                     case sf::Keyboard::Scancode::Enter:
                         if (selected == 1){
-                            if (musicON){
-                                musicON = false;
-                                mainMenuPointer->updateSound(musicVolume, musicON);
+                            if (settingsPointer->musicStatus){
+                                settingsPointer->musicStatus = false;
+                                mainMenuPointer->updateSound(settingsPointer->musicVolume, settingsPointer->musicStatus);
                                 updateMenuItems();
                             }else{
-                                musicON = true;
-                                mainMenuPointer->updateSound(musicVolume, musicON);
+                                settingsPointer->musicStatus = true;
+                                mainMenuPointer->updateSound(settingsPointer->musicVolume, settingsPointer->musicStatus);
                                 updateMenuItems();
                             }
                         }
@@ -107,6 +105,7 @@ void SettingMenu::run()
                         break;
                     case sf::Keyboard::Scancode::Escape:
                         window->close();
+
                         break;
 
                     default:
@@ -119,7 +118,7 @@ void SettingMenu::run()
         for (auto &item : items) window->draw(item);
         window->display();
     }
-
+    
 }
 
 void SettingMenu::initWindow()
@@ -152,9 +151,9 @@ void SettingMenu::updateSelectionVisual()
 
 void SettingMenu::updateMenuItems()
 {
-    items[0].setString("Volume: " + std::to_string(musicVolume));
+    items[0].setString("Volume: " + std::to_string(settingsPointer->musicVolume));
 
-    std::string text = std::string("Music: ") + (musicON ? "ON" : "OFF");
+    std::string text = std::string("Music: ") + (settingsPointer->musicStatus ? "ON" : "OFF");
     
     items[1].setString(text);
 }

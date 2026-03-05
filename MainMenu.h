@@ -3,15 +3,15 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 
+class Settings;
+
 class MainMenu {
     public:
         // Constructor and main loop
-        MainMenu();
+        MainMenu(Settings* settings);
         int run();
 
         void updateSound(int musicVolume, bool musicOn);
-
-        int returnVolume();
 
     private:
         // window
@@ -30,5 +30,5 @@ class MainMenu {
         int selected = 0;
         int width;
         int height;
-        int musicVolume;
+        Settings* settingsPointer;
 };

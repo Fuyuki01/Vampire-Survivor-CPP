@@ -2,12 +2,15 @@
 #include "Game.h"
 #include "SettingMenu.h"
 #include "GameOver.h"
+#include "Settings.h"
 
 int main() {
     bool continuePlaying = true;
 
+    Settings settings;
+
     while (continuePlaying) {
-        MainMenu menu;
+        MainMenu menu(&settings);
         int selected = menu.run();
 
         if (selected == 2) {
@@ -15,13 +18,13 @@ int main() {
             break;
         }else if (selected == 1){
             // Settings
-            SettingMenu setings(&menu);
-            setings.run();
+            SettingMenu setingsMenu(&settings, &menu);
+            setingsMenu.run();
         }
 
-        Game game;
         if (selected == 0){
             // Play
+            Game game;
             while (game.windowIsOpen()) {
                 game.update();
                 game.render();

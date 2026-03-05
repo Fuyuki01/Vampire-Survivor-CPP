@@ -2,11 +2,12 @@
 #include <SFML/Graphics.hpp>
 
 class MainMenu;
+class Settings;
 
 class SettingMenu{
     public:
         // Constructor and main loop
-        SettingMenu(MainMenu* mainMenu);
+        SettingMenu(Settings* settings, MainMenu* mainMenu);
         void run();
 
     private:
@@ -25,7 +26,6 @@ class SettingMenu{
         int selected = 0;
         int height;
         int width;
-        int musicVolume;
-        bool musicON;
         MainMenu* mainMenuPointer;
+        Settings* settingsPointer;
 };

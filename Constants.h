@@ -6,7 +6,8 @@ namespace GameConstants{
     constexpr int WIDTH = 600;
 
     // Music
-    constexpr int MUSIC_SOUND = 30;
+    constexpr int DEFAULT_MUSIC_VOLUME = 30;
+    constexpr bool DEFAULT_MUSIC_STATUS = true;
 
     // Map
     constexpr int MAP_HEIGHT = 160;

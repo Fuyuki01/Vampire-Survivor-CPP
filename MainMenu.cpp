@@ -1,11 +1,14 @@
 #include "MainMenu.h"
 #include "Constants.h"
+#include "Settings.h"
 #include <iostream>
 
-MainMenu::MainMenu()
+MainMenu::MainMenu(Settings* settings)
 {
     width = GameConstants::WIDTH;
     height = GameConstants::HEIGHT;
+
+    settingsPointer = settings;
 
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")) {
         std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";
@@ -76,10 +79,11 @@ void MainMenu::initMenuItems()
 
 void MainMenu::initMusic()
 {
-    musicVolume = GameConstants::MUSIC_SOUND;
     music.setLooping(true);
-    music.setVolume(musicVolume);
-    music.play();
+    music.setVolume(settingsPointer->musicVolume);
+    if (settingsPointer->musicStatus){
+        music.play();
+    }
 }
 
 // Main loop for the main menu
@@ -141,14 +145,16 @@ int MainMenu::run()
 
 void MainMenu::updateSound(int musicVolume, bool musicOn)
 {
-    if (musicOn){
+    settingsPointer->musicStatus = musicOn;
+
+    if (settingsPointer->musicStatus){
         if (music.getStatus() != sf::Music::Status::Playing){
             music.play();
         }
         music.setVolume(musicVolume);
     }
 
-    if (!musicOn){
+    if (!settingsPointer->musicStatus){
         if (music.getStatus() == sf::Music::Status::Playing){
             music.stop(); 
         }
@@ -157,9 +163,4 @@ void MainMenu::updateSound(int musicVolume, bool musicOn)
     }
 
     
-}
-
-int MainMenu::returnVolume()
-{
-    return musicVolume;
 }
