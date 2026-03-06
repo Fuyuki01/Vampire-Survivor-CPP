@@ -29,6 +29,12 @@ MainMenu::MainMenu(Settings* settings)
     updateSelectionVisual();
 }
 
+MainMenu::~MainMenu()
+{
+    delete window;
+    window = nullptr;
+}
+
 // Selected menu highlight
 void MainMenu::updateSelectionVisual()
 {
@@ -43,8 +49,12 @@ void MainMenu::updateSelectionVisual()
 
 void MainMenu::initwindow()
 {
+    if (settingsPointer->fullscreen){
+        window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Main Menu", sf::State::Fullscreen);
+    }else{
+        window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Main Menu");
+    }
 
-    window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Main Menu");
     window->setFramerateLimit(60);
 
     auto desktop = sf::VideoMode::getDesktopMode();
@@ -145,22 +155,17 @@ int MainMenu::run()
 
 void MainMenu::updateSound(int musicVolume, bool musicOn)
 {
-    settingsPointer->musicStatus = musicOn;
-
-    if (settingsPointer->musicStatus){
+    if (musicOn){
         if (music.getStatus() != sf::Music::Status::Playing){
             music.play();
         }
-        music.setVolume(musicVolume);
-    }
-
-    if (!settingsPointer->musicStatus){
+    }else{
         if (music.getStatus() == sf::Music::Status::Playing){
             music.stop(); 
         }
         
-       music.setVolume(musicVolume);
     }
 
+    music.setVolume(musicVolume);
     
 }

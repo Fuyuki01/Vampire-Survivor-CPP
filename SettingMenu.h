@@ -8,6 +8,7 @@ class SettingMenu{
     public:
         // Constructor and main loop
         SettingMenu(Settings* settings, MainMenu* mainMenu);
+        ~SettingMenu();
         void run();
 
     private:

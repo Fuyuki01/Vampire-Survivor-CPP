@@ -9,6 +9,7 @@ class MainMenu {
     public:
         // Constructor and main loop
         MainMenu(Settings* settings);
+        ~MainMenu();
         int run();
 
         void updateSound(int musicVolume, bool musicOn);

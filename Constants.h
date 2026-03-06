@@ -4,6 +4,7 @@ namespace GameConstants{
     // Window
     constexpr int HEIGHT = 800;
     constexpr int WIDTH = 600;
+    constexpr bool DEFAULT_FULL_SCREEN_STATUS = false;
 
     // Music
     constexpr int DEFAULT_MUSIC_VOLUME = 30;

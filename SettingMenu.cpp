@@ -22,14 +22,26 @@ SettingMenu::SettingMenu(Settings* settings, MainMenu* mainMenu)
     updateSelectionVisual();
 }
 
+SettingMenu::~SettingMenu()
+{
+    delete window;
+    
+    window = nullptr;
+}
+
 void SettingMenu::initMenuItems()
 {
     items.clear();
     items.emplace_back(sf::Text(font, "Volume: " + std::to_string(settingsPointer->musicVolume), 36));
 
-    std::string text = std::string("Music: ") + (settingsPointer->musicStatus ? "ON" : "OFF");
+    std::string musicStatusText = std::string("Music: ") + (settingsPointer->musicStatus ? "ON" : "OFF");
 
-    items.emplace_back(sf::Text(font, text, 36));
+    items.emplace_back(sf::Text(font, musicStatusText, 36));
+
+    std::string fullScreenStatusText = std::string("FullScreen: ") + (settingsPointer->fullscreen ? "ON" : "OFF");
+
+    items.emplace_back(font, fullScreenStatusText, 36);
+    
     items.emplace_back(sf::Text(font, "Return", 36));
 
     float startPosition = height / 2.f - (items.size() * 50.f) / 2.f;
@@ -86,19 +98,21 @@ void SettingMenu::run()
                         break;
 
                     case sf::Keyboard::Scancode::Enter:
+                        // MUSIC ON / OFF
                         if (selected == 1){
-                            if (settingsPointer->musicStatus){
-                                settingsPointer->musicStatus = false;
-                                mainMenuPointer->updateSound(settingsPointer->musicVolume, settingsPointer->musicStatus);
-                                updateMenuItems();
-                            }else{
-                                settingsPointer->musicStatus = true;
-                                mainMenuPointer->updateSound(settingsPointer->musicVolume, settingsPointer->musicStatus);
-                                updateMenuItems();
-                            }
+                            settingsPointer->musicStatus = !settingsPointer->musicStatus;
+                            mainMenuPointer->updateSound(settingsPointer->musicVolume, settingsPointer->musicStatus);
+                            updateMenuItems();
+                        }
+                        
+                        // Full Screen ON / OFF
+                        if (selected == 2){
+                            settingsPointer->fullscreen = !settingsPointer->fullscreen;
+                            window->close();
                         }
 
-                        if(selected == 2){
+                        // RETURN
+                        if(selected == 3){
                             window->close();
                         }
 
@@ -123,7 +137,11 @@ void SettingMenu::run()
 
 void SettingMenu::initWindow()
 {
-    window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Settings");
+    if (settingsPointer->fullscreen){
+        window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Settings", sf::State::Fullscreen);
+    }else{
+        window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Settings");
+    }
     window->setFramerateLimit(60);
 
     auto desktop = sf::VideoMode::getDesktopMode();
@@ -153,7 +171,11 @@ void SettingMenu::updateMenuItems()
 {
     items[0].setString("Volume: " + std::to_string(settingsPointer->musicVolume));
 
-    std::string text = std::string("Music: ") + (settingsPointer->musicStatus ? "ON" : "OFF");
+    std::string musicStatusText = std::string("Music: ") + (settingsPointer->musicStatus ? "ON" : "OFF");
     
-    items[1].setString(text);
+    items[1].setString(musicStatusText);
+
+    std::string fullScreenStatusText = std::string("FullScreen: ") + (settingsPointer->fullscreen ? "ON" : "OFF");
+
+    items[2].setString(fullScreenStatusText);
 }
