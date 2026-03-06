@@ -6,11 +6,17 @@
 
 SettingMenu::SettingMenu(Settings* settings, MainMenu* mainMenu)
 {
-    width = GameConstants::WIDTH;
-    height = GameConstants::HEIGHT;
 
     mainMenuPointer = mainMenu;
     settingsPointer = settings;
+
+    if (settingsPointer->fullscreen){
+        width = sf::VideoMode::getDesktopMode().size.x;
+        height = sf::VideoMode::getDesktopMode().size.y;
+    }else{
+        width = GameConstants::WIDTH;
+        height = GameConstants::HEIGHT;
+    }
 
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")){
         std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";

@@ -5,10 +5,15 @@
 
 MainMenu::MainMenu(Settings* settings)
 {
-    width = GameConstants::WIDTH;
-    height = GameConstants::HEIGHT;
-
     settingsPointer = settings;
+    
+    if (settingsPointer->fullscreen){
+        width = sf::VideoMode::getDesktopMode().size.x;
+        height = sf::VideoMode::getDesktopMode().size.y;
+    }else{
+        width = GameConstants::WIDTH;
+        height = GameConstants::HEIGHT;
+    }
 
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")) {
         std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";
@@ -78,6 +83,7 @@ void MainMenu::initMenuItems()
     items.emplace_back(sf::Text(font, "Exit", 36));
 
     // Position menu items
+    
     float startPosition = height / 2.f - (items.size() * 50.f) / 2.f;
     float y = startPosition;
     for (auto &item : items) {
