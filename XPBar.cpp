@@ -43,7 +43,7 @@ void XPBar::update()
         - xpBarSize.x/2, playerPos.y + 250));
     background.setPosition(this->getPosition());
 
-    levelText->setString("Level: " + std::to_string(playerPointer->getLevel()));
+    levelText->setString("Level " + std::to_string(playerPointer->getLevel()));
 
     if (showMessage &&
          messageTimer.getElapsedTime().asSeconds() > MESSAGE_DURATION) {
