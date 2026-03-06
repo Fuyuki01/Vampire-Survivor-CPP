@@ -3,16 +3,16 @@
 #include "Player.h"
 #include <iostream>
 
-Enemy_Humongous::Enemy_Humongous(Player* player): Enemy(player)
+Enemy_Humongous::Enemy_Humongous(Player *player): Enemy(player)
 {
     if (!texture.loadFromFile("../assets/Humongous.png"))
     {
         std::cout << "FAILED TO LOAD undead.png\n";
     }
-
-    enemySpeed = GameConstants::GOBLIN_SPEED;
-    enemyHealth = GameConstants::GOBLIN_HEALTH;
-    dropableXp = GameConstants::GOBLIN_XP;
+    
+    enemySpeed = GameConstants::HUMONGOUS_SPEED;
+    enemyHealth = GameConstants::HUMONGOUS_HEALTH;
+    dropableXp = GameConstants::HUMONGOUS_XP;
 
     initliazeHitbox();
     updateAppearance();
@@ -20,7 +20,7 @@ Enemy_Humongous::Enemy_Humongous(Player* player): Enemy(player)
 
 void Enemy_Humongous::updateAppearance()
 {
-   sprite.setTexture(texture, true);
+    sprite.setTexture(texture, true);
 
     sf::Vector2u textureSize = texture.getSize();
 

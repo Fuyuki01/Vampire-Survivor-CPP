@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enemy_Troll.h"
 #include "Enemy_Humongous.h"
+#include "Enemy_Goblin.h"
 #include "Map.h"
 #include "Weapon.h"
 #include "Settings.h"
@@ -130,13 +131,15 @@ void Game::enemyAutomaticSpawn()
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<> dist(0, 1);
+    std::uniform_int_distribution<> dist(0, 2);
     Enemy* enemy;
 
     if (dist(gen) == 0){
         enemy = new Enemy_Humongous(player);
-    }else{
+    }else if(dist(gen) == 1){
         enemy = new Enemy_Troll(player);
+    }else{
+        enemy = new Enemy_Goblin(player);
     }
 
     enemies.push_back(enemy);  

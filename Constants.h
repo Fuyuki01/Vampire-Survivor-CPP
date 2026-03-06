@@ -25,7 +25,8 @@ namespace GameConstants{
         // Enemy Speed
     constexpr float ENEMYSPEED = 3.f;
     constexpr float TROLL_SPEED = 2.5;
-    constexpr float GOBLIN_SPEED = 3.f;
+    constexpr float HUMONGOUS_SPEED = 3.f;
+    constexpr float GOBLIN_SPEED = 3.5f;
         // Enemy Spawn Timer
     constexpr float ENEMY_SPAWN_TIME = 3.f;
     constexpr float ENEMYINITPOSITION_X = 100.f;
@@ -38,14 +39,17 @@ namespace GameConstants{
     constexpr float ENEMY_I_FRAME = 0.3f;
         // Enemy Health
     constexpr float TROLL_HEALTH = 60;
+    constexpr float HUMONGOUS_HEALTH = 80;
     constexpr float GOBLIN_HEALTH = 40;
         // Enemy HitBox
     constexpr float TROLL_HITBOX_SIZE = 64.f;
     constexpr float HUMONGOUS_HITBOX_SIZE = 64.f;
+    constexpr float GOBLIN_HITBOX_X = 48.f;
+    constexpr float GOBLIN_HITBOX_Y = 42.f;
         // Enemy XP
     constexpr float TROLL_XP = 50;
+    constexpr float HUMONGOUS_XP = 80;
     constexpr float GOBLIN_XP = 25;
-
     // Sword
     constexpr float BASIC_SWORD_DAMAGE = 20;
     constexpr float SWORD_SIZE = 64.f;
