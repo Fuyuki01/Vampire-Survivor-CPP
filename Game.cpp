@@ -3,13 +3,15 @@
 #include "Constants.h"
 #include "Player.h"
 #include "Enemy_Troll.h"
-#include "Enemy_Goblin.h"
+#include "Enemy_Humongous.h"
 #include "Map.h"
 #include "Weapon.h"
+#include "Settings.h"
 #include <iostream>
 #include <random>
 
-Game::Game(){
+Game::Game(Settings* settings){
+    settingsPointer = settings;
     initVariables();
     initWindow();
     initView();
@@ -132,7 +134,7 @@ void Game::enemyAutomaticSpawn()
     Enemy* enemy;
 
     if (dist(gen) == 0){
-        enemy = new Enemy_Goblin(player);
+        enemy = new Enemy_Humongous(player);
     }else{
         enemy = new Enemy_Troll(player);
     }
@@ -146,12 +148,15 @@ void Game::initVariables()
     player = new Player();
     videoMode.size.x = GameConstants::HEIGHT;
     videoMode.size.y = GameConstants::WIDTH;
-    
 }
 
 void Game::initWindow()
 {
-    window = new sf::RenderWindow(videoMode, "Dark lords", sf::Style::Default);
+    if (settingsPointer->fullscreen){
+        window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Dark lords", sf::State::Fullscreen);
+    }else{
+        window = new sf::RenderWindow(videoMode, "Dark lords", sf::Style::Default);
+    }
     
     window->requestFocus();
 

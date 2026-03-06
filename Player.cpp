@@ -101,6 +101,7 @@ void Player::update()
 
 void Player::render(sf::RenderTarget* target)
 {
+    target->draw(hitBox);
     target->draw(sprite);
     healthBar->render(target);
     xpBar->render(target);

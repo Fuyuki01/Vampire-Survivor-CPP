@@ -15,7 +15,7 @@ class Enemy{
 
         void getDamaged(float damage); 
 
-        void initliazeHitbox();
+        virtual void initliazeHitbox() = 0;
     
         sf::Rect<float> returnBounds();
 
@@ -39,6 +39,7 @@ class Enemy{
         float dropableXp;
         sf::Vector2f enemySize;
         sf::Vector2f enemyInitPosition;
+        sf::Vector2f hitboxSize;
 
         // Texture 
         sf::Texture texture;

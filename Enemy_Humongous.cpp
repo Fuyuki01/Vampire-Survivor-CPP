@@ -1,11 +1,11 @@
-#include "Enemy_Goblin.h"
+#include "Enemy_Humongous.h"
 #include "Constants.h"
 #include "Player.h"
 #include <iostream>
 
-Enemy_Goblin::Enemy_Goblin(Player* player): Enemy(player)
+Enemy_Humongous::Enemy_Humongous(Player* player): Enemy(player)
 {
-    if (!texture.loadFromFile("../assets/goblin_idle/goblin_idle_anim_f0.png"))
+    if (!texture.loadFromFile("../assets/Humongous.png"))
     {
         std::cout << "FAILED TO LOAD undead.png\n";
     }
@@ -14,20 +14,33 @@ Enemy_Goblin::Enemy_Goblin(Player* player): Enemy(player)
     enemyHealth = GameConstants::GOBLIN_HEALTH;
     dropableXp = GameConstants::GOBLIN_XP;
 
+    initliazeHitbox();
     updateAppearance();
 }
 
-void Enemy_Goblin::updateAppearance()
+void Enemy_Humongous::updateAppearance()
 {
-    sprite.setTexture(texture, true);
+   sprite.setTexture(texture, true);
 
     sf::Vector2u textureSize = texture.getSize();
+
+    
     if (textureSize.x > 0 && textureSize.y > 0) {
         sprite.setScale(
             {GameConstants::ENEMYSIZE / textureSize.x,
             GameConstants::ENEMYSIZE / textureSize.y}
         );
     }
-
+    
     sprite.setPosition(hitBox.getPosition());
+}
+
+void Enemy_Humongous::initliazeHitbox()
+{
+    hitboxSize = enemySize;
+    hitBox.setSize(enemySize);
+    hitBox.setFillColor(sf::Color::Red);
+    hitBox.setPosition(enemyInitPosition);
+    hitBox.setOutlineColor(sf::Color::White);
+    hitBox.setOutlineThickness(2.0f);
 }

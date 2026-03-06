@@ -9,4 +9,6 @@ class Enemy_Troll: public Enemy{
         explicit Enemy_Troll(Player* player);
 
         void updateAppearance() override;
+
+        void initliazeHitbox() override;
 };

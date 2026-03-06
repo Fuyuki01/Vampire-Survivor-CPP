@@ -4,10 +4,11 @@
 
 class Player;
 
-class Enemy_Goblin: public Enemy{
+class Enemy_Humongous: public Enemy{
     public:
-        explicit Enemy_Goblin(Player* player);
+        explicit Enemy_Humongous(Player* player);
 
         void updateAppearance() override;
 
+        void initliazeHitbox() override;
 };

@@ -37,8 +37,11 @@ namespace GameConstants{
         // Enemy I frame
     constexpr float ENEMY_I_FRAME = 0.3f;
         // Enemy Health
-    constexpr float TROLL_HEALTH = 300;
-    constexpr float GOBLIN_HEALTH = 100;
+    constexpr float TROLL_HEALTH = 60;
+    constexpr float GOBLIN_HEALTH = 40;
+        // Enemy HitBox
+    constexpr float TROLL_HITBOX_SIZE = 64.f;
+    constexpr float HUMONGOUS_HITBOX_SIZE = 64.f;
         // Enemy XP
     constexpr float TROLL_XP = 50;
     constexpr float GOBLIN_XP = 25;

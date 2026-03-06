@@ -9,7 +9,6 @@ enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPO
 enemySize({GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE}), playerPointer(player),
 texture(), sprite(texture), dropableXp(0.f)
 {
-    initliazeHitbox();
 }
 
 void Enemy::update(){
@@ -18,6 +17,7 @@ void Enemy::update(){
 
 void Enemy::render(sf::RenderTarget* target)
 {
+    target->draw(hitBox);
     target->draw(sprite);
 }
 
@@ -48,7 +48,7 @@ void Enemy::restartIframeTime()
 
 bool Enemy::isDead()
 {
-    if (enemyHealth == 0) return true;
+    if (enemyHealth <= 0) return true;
     else return false;
 }
 
@@ -83,12 +83,3 @@ void Enemy::getDamaged(float damage)
     }
 }
 
-
-void Enemy::initliazeHitbox()
-{
-    hitBox.setSize(enemySize);
-    hitBox.setFillColor(sf::Color::Red);
-    hitBox.setPosition(enemyInitPosition);
-    hitBox.setOutlineColor(sf::Color::White);
-    hitBox.setOutlineThickness(2.0f);
-}

@@ -4,12 +4,13 @@
 class Enemy;
 class Player;
 class Map;
+class Settings;
 class GameOver;
 
 class Game{
     public:
         // Constructors 
-        Game();
+        Game(Settings* settings);
         ~Game();
 
         // Functions
@@ -24,6 +25,8 @@ class Game{
     private:
         // Values
         std::vector<Enemy*> enemies;
+        bool totalDeath;
+        Settings* settingsPointer;
 
         // Window
         sf::RenderWindow* window;
@@ -42,10 +45,7 @@ class Game{
 
         // Private Functions
         void initVariables();
-        void initEnemies();
         void initWindow();
         void initView();
         void initMap();
-        bool totalDeath;
-        
 };

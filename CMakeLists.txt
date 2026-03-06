@@ -18,7 +18,7 @@ add_executable(game
     Map.cpp
     Enemy.cpp
     Enemy_Troll.cpp
-    Enemy_Goblin.cpp
+    Enemy_Humongous.cpp
     MainMenu.cpp
     GameOver.cpp
     SettingMenu.cpp

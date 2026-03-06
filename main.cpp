@@ -24,7 +24,7 @@ int main() {
 
         if (selected == 0){
             // Play
-            Game game;
+            Game game(&settings);
             while (game.windowIsOpen()) {
                 game.update();
                 game.render();
