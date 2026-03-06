@@ -6,7 +6,7 @@
 #include <iostream>
 
 // Constructor
-Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(1)
+Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(0)
 {
     if (!texture.loadFromFile("../assets/knight_f_idle_anim_f0.png")){
         std::cout << "FAILED TO LOAD undead.png\n";
@@ -14,6 +14,7 @@ Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(1)
     
     speed = GameConstants::SPEED;
     health = GameConstants::PLAYER_HEALTH;
+    maxHealth = GameConstants::PLAYER_HEALTH;
     
 
     initliazeHealthBar();
@@ -62,7 +63,7 @@ void Player::initliazeHitbox()
 
 void Player::initliazeHealthBar()
 {
-    healthBar = new HealthBar(health, this);
+    healthBar = new HealthBar(health, maxHealth, this);
 }
 
 void Player::initializeXpBar()
@@ -187,7 +188,12 @@ void Player::levelUp()
 {
     level++;
     maxXP *= 1.2f;
-    health += 20.0f;
+    maxHealth += 20.0f;
+    health += 50.0f;
+    if (health > maxHealth) health = maxHealth;
+    healthBar->setMaxHealth(maxHealth);
+    healthBar->updateHealth(health);
+
     speed += 2.0f;
 
     xpBar->showLevelUpMessage();

@@ -5,14 +5,17 @@ class Player;
 
 class HealthBar: public sf::RectangleShape {
     public:
-        HealthBar(float health, Player* player);
+        HealthBar(float initialHealth, float maxHealth, Player* player);
         ~HealthBar();
 
-        void updateHealth(float health);
+        void updateHealth(float currentHealth);
+        void setMaxHealth(float newMaxHealth);
+        
         void update();
         void render(sf::RenderTarget* target);
 
     private:
+        float maxHealth;
         sf::Vector2f healthSize;
         sf::RectangleShape background;
 

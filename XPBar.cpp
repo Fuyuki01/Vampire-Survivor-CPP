@@ -24,7 +24,7 @@ XPBar::XPBar(float xp, Player* player){
                                    playerPointer->returnPosition().y + 250));
     initBackground(xp);
     initLevelUp();
-    showLevelUpMessage();
+    showLevelText();
 }
 
 XPBar::~XPBar()
@@ -39,10 +39,14 @@ void XPBar::updateXp(float fraction)
 void XPBar::update()
 {
     sf::Vector2f playerPos = playerPointer->returnPosition();
-    this->setPosition(sf::Vector2f(playerPos.x - xpBarSize.x/2, playerPos.y + 250));
+    this->setPosition(sf::Vector2f(playerPos.x 
+        - xpBarSize.x/2, playerPos.y + 250));
     background.setPosition(this->getPosition());
 
-    if (showMessage && messageTimer.getElapsedTime().asSeconds() > MESSAGE_DURATION) {
+    levelText->setString("Level: " + std::to_string(playerPointer->getLevel()));
+
+    if (showMessage &&
+         messageTimer.getElapsedTime().asSeconds() > MESSAGE_DURATION) {
         showMessage = false;
     }
 }
@@ -52,12 +56,23 @@ void XPBar::render(sf::RenderTarget *target)
     target->draw(*this);
     target->draw(background);
 
+    sf::View originalView = target->getView();
+
+    target->setView(target->getDefaultView());
+
+    levelText->setPosition(sf::Vector2f(20.f, 20.f));
+    target->draw(*levelText);
+
     if (showMessage) {
-        sf::Vector2f playerPos = playerPointer->returnPosition();
+        sf::Vector2u windowSize = target->getSize();
         sf::FloatRect textBounds = levelUpText->getLocalBounds();
-        levelUpText->setPosition(sf::Vector2f(playerPos.x - textBounds.size.x - 20.f, 20.f));
+
+        levelUpText->setPosition(sf::Vector2f(windowSize.x -
+             textBounds.size.x - 20.f, 20.f));
         target->draw(*levelUpText);
-}
+    }
+
+    target->setView(originalView);
 }
 
 void XPBar::initBackground(float xp)
@@ -84,5 +99,13 @@ void XPBar::showLevelUpMessage(){
 
     showMessage = true;
     messageTimer.restart();
+}
+
+void XPBar::showLevelText(){
+    levelText = std::make_unique<sf::Text>(
+        font, "LEVEL " + std::to_string(playerPointer->getLevel()), 24);
+    levelText->setFillColor(sf::Color::Yellow);
+    levelText->setOutlineColor(sf::Color::Black);
+    levelText->setOutlineThickness(2.f);
 }
 
