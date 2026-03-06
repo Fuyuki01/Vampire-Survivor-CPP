@@ -43,6 +43,7 @@ class Player {
 
         // Health
         float health;
+        float maxHealth;
         HealthBar* healthBar;
         void initliazeHealthBar();
 

@@ -15,6 +15,7 @@ class XPBar: public sf::RectangleShape{
 
         void showLevelUpMessage();
         void initLevelUp();
+        void showLevelText();
 
     private:
         sf::Vector2f xpBarSize;
@@ -22,6 +23,7 @@ class XPBar: public sf::RectangleShape{
 
         sf::Font font;
         std::unique_ptr<sf::Text> levelUpText;
+        std::unique_ptr<sf::Text> levelText;
         bool showMessage;
         sf::Clock messageTimer;
         const float MESSAGE_DURATION = 2.0f;
