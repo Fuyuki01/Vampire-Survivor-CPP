@@ -31,7 +31,7 @@ int main() {
             }
 
             if (game.isTotalDeath()) {
-                GameOver gameOver;
+                GameOver gameOver(&settings);
                 bool returnToMenu = gameOver.run();
 
                 if (!returnToMenu) {

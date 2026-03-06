@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <random>
 
 class Enemy;
 class Player;
@@ -27,6 +28,8 @@ class Game{
         std::vector<Enemy*> enemies;
         bool totalDeath;
         Settings* settingsPointer;
+        std::random_device rd;
+        std::mt19937 gen;
 
         // Window
         sf::RenderWindow* window;

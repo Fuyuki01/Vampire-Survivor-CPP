@@ -9,7 +9,6 @@
 #include "Weapon.h"
 #include "Settings.h"
 #include <iostream>
-#include <random>
 
 Game::Game(Settings* settings){
     settingsPointer = settings;
@@ -128,18 +127,23 @@ bool Game::windowIsOpen() const
 
 void Game::enemyAutomaticSpawn()
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
 
     std::uniform_int_distribution<> dist(0, 2);
-    Enemy* enemy;
-
-    if (dist(gen) == 0){
+    Enemy* enemy = nullptr;
+    
+    switch (dist(gen))
+    {
+    case 0:
         enemy = new Enemy_Humongous(player);
-    }else if(dist(gen) == 1){
+        break;
+    case 1:
         enemy = new Enemy_Troll(player);
-    }else{
+        break;
+    case 2:
         enemy = new Enemy_Goblin(player);
+        break;
+    default:
+        break;
     }
 
     enemies.push_back(enemy);  
@@ -151,6 +155,8 @@ void Game::initVariables()
     player = new Player();
     videoMode.size.x = GameConstants::HEIGHT;
     videoMode.size.y = GameConstants::WIDTH;
+
+    gen.seed(rd());
 }
 
 void Game::initWindow()

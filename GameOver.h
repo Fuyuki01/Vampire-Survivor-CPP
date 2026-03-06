@@ -2,9 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 
+class Settings;
+
 class GameOver {
     public:
-        GameOver();
+        GameOver(Settings* settings);
         bool run();
 
     private:
@@ -17,4 +19,5 @@ class GameOver {
         std::unique_ptr<sf::Text> gameOverText;
         int height;
         int width;
+        Settings* settingsPointer;
 };

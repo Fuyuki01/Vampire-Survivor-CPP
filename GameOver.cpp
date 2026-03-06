@@ -1,11 +1,14 @@
 #include "GameOver.h"
 #include "Constants.h"
+#include "Settings.h"
 #include <iostream>
 
-GameOver::GameOver()
+GameOver::GameOver(Settings* settings)
 {
     width = GameConstants::WIDTH;
     height = GameConstants::HEIGHT;
+
+    settingsPointer = settings;
 
     if (!font.openFromFile("../assets/MinimalPixelFont.TTF")) {
         std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";
@@ -28,8 +31,12 @@ GameOver::GameOver()
 
 void GameOver::initwindow()
 {
-
-    window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Game Over");
+    if (settingsPointer->fullscreen){
+        window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Game Over", sf::State::Fullscreen);
+    }else{
+        window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Game Over");
+    }
+    
     window->setFramerateLimit(60);
 
     auto desktop = sf::VideoMode::getDesktopMode();
