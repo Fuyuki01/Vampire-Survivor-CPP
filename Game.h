@@ -46,6 +46,9 @@ class Game{
         // Map
         Map* worldMap;
 
+        // Collision
+        void enemyCollision();
+
         // Private Functions
         void initVariables();
         void initWindow();

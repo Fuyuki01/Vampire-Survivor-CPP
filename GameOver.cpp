@@ -79,7 +79,7 @@ bool GameOver::run()
             }
         }
 
-        if (clock.getElapsedTime().asSeconds() >= 5.0f) {
+        if (clock.getElapsedTime().asSeconds() >= 3.0f) {
             window->close();
             return true;
         }

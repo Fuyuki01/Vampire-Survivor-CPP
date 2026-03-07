@@ -89,6 +89,8 @@ void Game::update()
         }
     }
 
+    enemyCollision();
+
     if (enemySpawnerTime.getElapsedTime().asSeconds() > GameConstants::ENEMY_SPAWN_TIME){
         enemyAutomaticSpawn();
         
@@ -148,6 +150,58 @@ void Game::enemyAutomaticSpawn()
 
     enemies.push_back(enemy);  
 }
+
+// enemy collision with enemy
+void Game::enemyCollision() {
+
+    // Loop through all pairs of enemies
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        for (size_t j = i + 1; j < enemies.size(); ++j) {
+
+            // get the bounds of the two enemies
+            sf::FloatRect boundsA = enemies[i]->returnBounds();
+            sf::FloatRect boundsB = enemies[j]->returnBounds();
+
+            // check for intersection
+            if (auto intersectionOpt = boundsA.findIntersection(boundsB)) {
+
+                //calculate the intersection rectangle
+                sf::FloatRect intersection = *intersectionOpt;
+                // how to push them apart
+                sf::Vector2f push(0.f, 0.f);
+
+                if (intersection.size.x < intersection.size.y) {
+
+                    // horizontal push
+                    if (boundsA.position.x < boundsB.position.x)
+
+                        push.x = intersection.size.x;
+
+                    else
+                        push.x = -intersection.size.x;
+                    }
+
+                    // vertical push
+                else {
+                    if (boundsA.position.y < boundsB.position.y)
+
+                        push.y = intersection.size.y;
+                    
+                    else
+                        push.y = -intersection.size.y;
+                    }
+                
+                // Move the enemies apart
+                enemies[i]->move(-push * 0.5f);
+                enemies[j]->move(push * 0.5f);
+
+            }
+        
+        }
+    }
+
+}
+
 
 void Game::initVariables()
 {    

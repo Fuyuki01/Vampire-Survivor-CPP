@@ -44,3 +44,4 @@ void Enemy_Humongous::initliazeHitbox()
     hitBox.setOutlineColor(sf::Color::White);
     hitBox.setOutlineThickness(2.0f);
 }
+

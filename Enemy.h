@@ -29,6 +29,12 @@ class Enemy{
         //getter
         float getXpValue() const { return dropableXp; }
 
+        //enemyxenemy collision helper
+        void move(const sf::Vector2f& offset) {
+            hitBox.move(offset);
+            sprite.setPosition(hitBox.getPosition());
+        }
+
     protected:
         // Player pointer
         Player* playerPointer;
