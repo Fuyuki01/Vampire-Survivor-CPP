@@ -8,6 +8,7 @@ Damage_Card::Damage_Card(): Card()
     increaseOnDamage = GameConstants::INCREASE_DAMAGE_CARD;
 
     initAppearance();
+    initText();
 }
 
 void Damage_Card::initAppearance()
@@ -24,6 +25,16 @@ void Damage_Card::initAppearance()
             1}
         );
     }
+}
+
+void Damage_Card::initText()
+{
+    description.clear();
+    
+    description.push_back(sf::Text(font, "Damage Card", 36));
+    
+    std::string damageText = std::string("+") + std::to_string(int(increaseOnDamage)) + std::string(" Damage");
+    description.push_back(sf::Text(font, damageText, 36));
 }
 
 void Damage_Card::apply(Player& player)

@@ -8,6 +8,7 @@ Speed_Card::Speed_Card(): Card()
     increaOnSpeed = GameConstants::INCREASE_SPEED_CARD;
 
     initAppearance();
+    initText();
 }
 
 void Speed_Card::initAppearance()
@@ -24,6 +25,16 @@ void Speed_Card::initAppearance()
             1}
         );
     }
+}
+
+void Speed_Card::initText()
+{
+    description.clear();
+    
+    description.push_back(sf::Text(font, "Speed Card", 36));
+    
+    std::string speedText = std::string("+") + std::to_string(int(increaOnSpeed)) + std::string(" Speed");
+    description.push_back(sf::Text(font, speedText, 36));
 }
 
 void Speed_Card::apply(Player& player)
