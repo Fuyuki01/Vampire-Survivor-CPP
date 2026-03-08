@@ -21,6 +21,12 @@ namespace GameConstants{
     constexpr float PLAYER_SIZE = 64.f;
     constexpr float BASE_ATTACK_SPEED = 4.f;
 
+    // Knockback
+    constexpr float KNOCKBACK_DISTANCE = 20.f;
+    constexpr float KNOCKBACK_DECAY = 0.9f;
+    constexpr float KNOCKBACK_COOLDOWN = 0.2f;
+    
+
     // Cards
     constexpr float INCREASE_HEALTH_CARD = 300;
     constexpr float INCREASE_SPEED_CARD = 5.f;

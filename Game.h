@@ -62,6 +62,9 @@ class Game{
         // Collision
         void enemyCollision();
 
+        // Player Collision
+        void playerCollision();
+
         // Private Functions
         void initVariables();
         void initWindow();

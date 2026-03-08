@@ -105,6 +105,16 @@ void Game::updatePlaying()
             enemy->returnAttackTime() > GameConstants::ENEMY_HIT_FRAME){
             player->getDamaged(GameConstants::ENEMY_DAMAGE);
 
+            sf::Vector2f playerPos = player->returnPosition();
+            sf::Vector2f enemyPos = enemy->getPosition();
+
+            sf::Vector2f knockbackDir = playerPos - enemyPos;
+            float length = std::sqrt(knockbackDir.x * knockbackDir.x + knockbackDir.y * knockbackDir.y);
+            
+            if (length != 0.f) knockbackDir /= length;
+            player->setKnockback(knockbackDir * GameConstants::KNOCKBACK_DISTANCE);
+
+
             enemy->restartAttackTime();
             if (player->returnHealth() <= 0){
                 totalDeath = true;
@@ -133,7 +143,9 @@ void Game::updatePlaying()
         }
     }
 
+    playerCollision();
     enemyCollision();
+
 
     if (enemySpawnerTime.getElapsedTime().asSeconds() > GameConstants::ENEMY_SPAWN_TIME){
         enemyAutomaticSpawn();
@@ -258,6 +270,40 @@ void Game::enemyCollision() {
         }
     }
 
+}
+
+// player collision with enemy
+void Game::playerCollision()
+{   
+    // get the bounds of the player
+    sf::FloatRect playerBounds = player->returnBounds();
+
+    for (auto* enemy : enemies){
+        if (auto intersectionOpt = playerBounds.findIntersection
+            (enemy->returnBounds())) {
+
+            sf::FloatRect intersection = *intersectionOpt;
+            sf::Vector2f push(0.f, 0.f);
+
+            if (intersection.size.x < intersection.size.y) {
+                if (playerBounds.position.x < enemy->returnBounds().position.x)
+                    push.x = -intersection.size.x;
+                else; 
+                    push.x = intersection.size.x;       
+                }
+
+            else {
+                if (playerBounds.position.y < enemy->returnBounds().position.y)
+                    push.y = -intersection.size.y;
+                else
+                    push.y = intersection.size.y;
+                
+            }
+
+            player->move(push);
+            playerBounds = player->returnBounds();
+        }
+    }
 }
 
 void Game::initVariables()

@@ -35,6 +35,10 @@ class Enemy{
             sprite.setPosition(hitBox.getPosition());
         }
 
+        sf ::Vector2f getPosition() const {
+            return hitBox.getPosition();
+        }
+
     protected:
         // Player pointer
         Player* playerPointer;

@@ -28,6 +28,9 @@ class Player {
         void updateSpeed(float addSpeed);
         void updateWeaponDamage(float addWeaponDamage);
         bool didLevelUp();
+        // Knockback function
+        void move(const sf::Vector2f& offset);
+        void setKnockback(const sf::Vector2f& velocity);
 
     private:
         // Texture
@@ -63,5 +66,9 @@ class Player {
         // Weapon
         std::vector<std::unique_ptr<Weapon>> weapons;
         void initWeapon();
+
+        // Knockback
+        sf::Vector2f knockbackVelocity;
+        sf::Clock knockbackCooldown;
 
 };

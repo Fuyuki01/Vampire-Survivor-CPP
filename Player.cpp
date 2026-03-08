@@ -6,7 +6,7 @@
 #include <iostream>
 
 // Constructor
-Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(0)
+Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(0) , knockbackVelocity(0.f, 0.f)
 {
     if (!texture.loadFromFile("../assets/knight_f_idle_anim_f0.png")){
         std::cout << "FAILED TO LOAD undead.png\n";
@@ -16,6 +16,8 @@ Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(0)
     health = GameConstants::PLAYER_HEALTH;
     maxHealth = GameConstants::PLAYER_HEALTH;
     levelUped = false;
+
+
 
     initliazeHealthBar();
     initliazeHitbox();
@@ -85,6 +87,18 @@ void Player::update()
 {
     if (health > 0){  
         keyInputs();
+
+        // apply knockback velocity
+        hitBox.move(knockbackVelocity);
+        sprite.setPosition(hitBox.getPosition());
+
+        // decay knockback velocity
+        knockbackVelocity *= GameConstants::KNOCKBACK_DECAY;
+
+        // if the velocity is very small, set it to zero
+        if (std::abs(knockbackVelocity.x) < 0.1f) knockbackVelocity.x = 0.f;
+        if (std::abs(knockbackVelocity.y) < 0.1f) knockbackVelocity.y = 0.f;
+
         healthBar->updateHealth(health);
         healthBar->update();
         float xpFraction = xp / maxXP;
@@ -230,3 +244,20 @@ void Player::levelUp()
     levelUped  = true;
     xpBar->showLevelUpMessage();
 }
+
+// Knockback function
+
+void Player::setKnockback(const sf::Vector2f& velocity)
+{
+    if (knockbackCooldown.getElapsedTime().asSeconds() > GameConstants::KNOCKBACK_COOLDOWN) {
+        knockbackVelocity = velocity;
+        knockbackCooldown.restart();
+    }
+}
+
+void Player::move(const sf::Vector2f& offset)
+{
+    hitBox.move(offset);
+    sprite.setPosition(hitBox.getPosition());
+}
+
