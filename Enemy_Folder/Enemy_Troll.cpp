@@ -1,24 +1,22 @@
-#include "Enemy_Humongous.h"
-#include "Constants.h"
-#include "Player.h"
+#include "Enemy_Troll.h"
 #include <iostream>
 
-Enemy_Humongous::Enemy_Humongous(Player *player): Enemy(player)
+Enemy_Troll::Enemy_Troll(Player *player): Enemy(player)
 {
-    if (!texture.loadFromFile("../assets/Humongous.png"))
+    if (!texture.loadFromFile("../assets/troll.png"))
     {
         std::cout << "FAILED TO LOAD undead.png\n";
     }
     
-    enemySpeed = GameConstants::HUMONGOUS_SPEED;
-    enemyHealth = GameConstants::HUMONGOUS_HEALTH;
-    dropableXp = GameConstants::HUMONGOUS_XP;
+    enemySpeed = GameConstants::TROLL_SPEED;
+    enemyHealth = GameConstants::TROLL_HEALTH;
+    dropableXp = GameConstants::TROLL_XP;
 
     initliazeHitbox();
     updateAppearance();
 }
 
-void Enemy_Humongous::updateAppearance()
+void Enemy_Troll::updateAppearance()
 {
     sprite.setTexture(texture, true);
 
@@ -35,7 +33,7 @@ void Enemy_Humongous::updateAppearance()
     sprite.setPosition(hitBox.getPosition());
 }
 
-void Enemy_Humongous::initliazeHitbox()
+void Enemy_Troll::initliazeHitbox()
 {
     hitboxSize = enemySize;
     hitBox.setSize(enemySize);
@@ -44,4 +42,3 @@ void Enemy_Humongous::initliazeHitbox()
     hitBox.setOutlineColor(sf::Color::White);
     hitBox.setOutlineThickness(2.0f);
 }
-

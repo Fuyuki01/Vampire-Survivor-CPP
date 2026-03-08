@@ -16,13 +16,17 @@ add_executable(game
     Game.cpp
     Player.cpp
     Map.cpp
-    Enemy.cpp
-    Enemy_Troll.cpp
-    Enemy_Humongous.cpp
-    Enemy_Goblin.cpp
-    MainMenu.cpp
+    Enemy_Folder/Enemy.cpp
+    Enemy_Folder/Enemy_Troll.cpp
+    Enemy_Folder/Enemy_Humongous.cpp
+    Enemy_Folder/Enemy_Goblin.cpp
+    Cards_Folder/Card.cpp
+    Cards_Folder/Damage_Card.cpp
+    Cards_Folder/Health_Card.cpp
+    Cards_Folder/Speed_Card.cpp
+    Menu_Folder/MainMenu.cpp
     GameOver.cpp
-    SettingMenu.cpp
+    Menu_Folder/SettingMenu.cpp
     HealthBar.cpp
     XPBar.cpp
     Weapon.cpp

@@ -1,8 +1,8 @@
-#include "MainMenu.h"
+#include "Menu_Folder/MainMenu.h"
 #include "Game.h"
-#include "SettingMenu.h"
+#include "Menu_Folder/SettingMenu.h"
 #include "GameOver.h"
-#include "Settings.h"
+#include "Menu_Folder/Settings.h"
 
 int main() {
     bool continuePlaying = true;

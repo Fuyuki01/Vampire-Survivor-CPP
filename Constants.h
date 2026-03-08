@@ -21,6 +21,11 @@ namespace GameConstants{
     constexpr float PLAYER_SIZE = 64.f;
     constexpr float BASE_ATTACK_SPEED = 4.f;
 
+    // Cards
+    constexpr float INCREASE_HEALTH_CARD = 300;
+    constexpr float INCREASE_SPEED_CARD = 5.f;
+    constexpr float INCREASE_DAMAGE_CARD = 40.f;
+
     // Enemy
         // Enemy Speed
     constexpr float ENEMYSPEED = 3.f;

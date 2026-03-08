@@ -1,6 +1,4 @@
 #include "Enemy_Goblin.h"
-#include "Constants.h"
-#include "Player.h"
 #include <iostream>
 
 Enemy_Goblin::Enemy_Goblin(Player* player): Enemy(player)

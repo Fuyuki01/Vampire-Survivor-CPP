@@ -23,7 +23,11 @@ class Player {
         const std::vector<std::unique_ptr<Weapon>>& getWeapons() const;
         bool returnFacingRight();
         void addXP(float amount);
-        int getLevel() const { return level; }
+        int getLevel() const; 
+        void updateHealth(float addHealth);
+        void updateSpeed(float addSpeed);
+        void updateWeaponDamage(float addWeaponDamage);
+        bool didLevelUp();
 
     private:
         // Texture
@@ -52,12 +56,9 @@ class Player {
         float xp;
         float maxXP;
         XPBar* xpBar;
+        bool levelUped;
         void initializeXpBar();
         void levelUp();
-
-        // Attack
-        float playerDamage;
-        void attack();
 
         // Weapon
         std::vector<std::unique_ptr<Weapon>> weapons;

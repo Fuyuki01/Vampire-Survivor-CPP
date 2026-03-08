@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-class Player;
+#include "../Constants.h"
+#include "../Player.h"
 
 class Enemy{
     public:
@@ -49,6 +49,8 @@ class Enemy{
 
         // Texture 
         sf::Texture texture;
+
+        // Sprite
         sf::Sprite sprite;
 
         // Hitbox

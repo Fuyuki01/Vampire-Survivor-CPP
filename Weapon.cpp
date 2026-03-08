@@ -37,6 +37,11 @@ void Weapon::render(sf::RenderTarget *target)
     }
 }
 
+void Weapon::updateDamage(float addWeaponDamage)
+{
+    damage += addWeaponDamage;
+}
+
 sf::Rect<float> Weapon::returnBounds()
 {
     return hitBox.getGlobalBounds();

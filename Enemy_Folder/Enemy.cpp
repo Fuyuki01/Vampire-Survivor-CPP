@@ -1,6 +1,4 @@
 #include "Enemy.h"
-#include "Player.h"
-#include "Constants.h"
 #include <cmath>
 #include <iostream>
 

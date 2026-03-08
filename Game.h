@@ -1,12 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <random>
+#include <vector>
 
 class Enemy;
 class Player;
+class Card;
 class Map;
 class Settings;
 class GameOver;
+
+enum class GameState{
+    Playing,
+    LevelUp
+};
 
 class Game{
     public:
@@ -25,11 +32,17 @@ class Game{
         
     private:
         // Values
-        std::vector<Enemy*> enemies;
         bool totalDeath;
         Settings* settingsPointer;
         std::random_device rd;
         std::mt19937 gen;
+        GameState gameState;
+        sf::Keyboard::Scancode lastKeyPressed;
+
+        // Vectors
+        std::vector<Enemy*> enemies;
+        std::vector<std::unique_ptr<Card>> cardPool;
+        std::vector<Card*> currentCards;
 
         // Window
         sf::RenderWindow* window;
@@ -54,4 +67,12 @@ class Game{
         void initWindow();
         void initView();
         void initMap();
+        void initCards();
+        void get3Cards();
+        void positionCards();
+        
+        // Game State Updates
+        void updatePlaying();
+        void updateLevelUp();
+
 };

@@ -14,6 +14,7 @@ class Weapon{
         virtual void render(sf::RenderTarget* target);
 
         virtual int returnDamage() = 0;
+        void updateDamage(float addWeaponDamage);
 
         sf::Rect<float> returnBounds();
         bool isActive() const;

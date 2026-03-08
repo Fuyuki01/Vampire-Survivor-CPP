@@ -15,7 +15,7 @@ Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(0)
     speed = GameConstants::SPEED;
     health = GameConstants::PLAYER_HEALTH;
     maxHealth = GameConstants::PLAYER_HEALTH;
-    
+    levelUped = false;
 
     initliazeHealthBar();
     initliazeHitbox();
@@ -80,7 +80,6 @@ const std::vector<std::unique_ptr<Weapon>>& Player::getWeapons() const
 {
     return weapons;
 }
-
 
 void Player::update()
 {
@@ -184,6 +183,39 @@ void Player::addXP(float amount)
 }
 }
 
+int Player::getLevel() const
+{
+    return level; 
+}
+
+void Player::updateHealth(float addHealth)
+{
+    maxHealth += addHealth;
+    health += addHealth / 2.f;
+}
+
+void Player::updateSpeed(float addSpeed)
+{
+    speed += addSpeed;
+}
+
+void Player::updateWeaponDamage(float addWeaponDamage)
+{
+    for (const auto& weapon : weapons){
+        weapon->updateDamage(addWeaponDamage);
+    }
+}
+
+bool Player::didLevelUp()
+{
+    if (levelUped){
+        levelUped = false;
+        return true;
+    }else{
+        return false;
+    }
+}
+
 void Player::levelUp()
 {
     level++;
@@ -195,6 +227,6 @@ void Player::levelUp()
     healthBar->updateHealth(health);
 
     speed += 2.0f;
-
+    levelUped  = true;
     xpBar->showLevelUpMessage();
 }

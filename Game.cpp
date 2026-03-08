@@ -1,14 +1,19 @@
 #include "Game.h"
-#include "Enemy.h"
+#include "Enemy_Folder/Enemy.h"
 #include "Constants.h"
 #include "Player.h"
-#include "Enemy_Troll.h"
-#include "Enemy_Humongous.h"
-#include "Enemy_Goblin.h"
+#include "Enemy_Folder/Enemy_Troll.h"
+#include "Enemy_Folder/Enemy_Humongous.h"
+#include "Enemy_Folder/Enemy_Goblin.h"
+#include "Cards_Folder/Card.h"
+#include "Cards_Folder/Health_Card.h"
+#include "Cards_Folder/Damage_Card.h"
+#include "Cards_Folder/Speed_Card.h"
 #include "Map.h"
 #include "Weapon.h"
-#include "Settings.h"
+#include "Menu_Folder/Settings.h"
 #include <iostream>
+#include <algorithm>
 
 Game::Game(Settings* settings){
     settingsPointer = settings;
@@ -16,6 +21,7 @@ Game::Game(Settings* settings){
     initWindow();
     initView();
     initMap();
+    initCards();
     totalDeath = false;
 }
 
@@ -42,6 +48,8 @@ void Game::pollevents()
         }
         else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
         {
+            lastKeyPressed = keyPressed->scancode;
+
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
                 window->close();
             }
@@ -52,7 +60,37 @@ void Game::pollevents()
 void Game::update()
 {
     pollevents();
+
+    if (gameState == GameState::Playing){
+        updatePlaying();
+    }else if(gameState == GameState::LevelUp){
+        updateLevelUp();
+    }
+}
+
+void Game::render()
+{   
+    window->clear(sf::Color::Black);
+    if (gameState == GameState::Playing){
+        worldMap->render(window);
+
+        for (auto* e : enemies){
+            e->render(window);
+        }
+
+        player->render(window);
+    }else if(gameState == GameState::LevelUp){
+        window->setView(window->getDefaultView());
+        for (auto* card : currentCards){
+            card->render(window);
+        }
+    }
     
+    window->display();
+}
+
+void Game::updatePlaying()
+{
     for (auto* enemy : enemies){
         enemy->update();
         sf::Rect<float> playerBounds = player->returnBounds();
@@ -78,14 +116,16 @@ void Game::update()
                 }
             }
         }
-        for (size_t i = 0; i < enemies.size(); ) {
+        
+    }
+
+    for (size_t i = 0; i < enemies.size(); ) {
         if (enemies[i]->isDead()) {
             player->addXP(enemies[i]->getXpValue());
             delete enemies[i];
-                enemies.erase(enemies.begin() + i);
+            enemies.erase(enemies.begin() + i);
         } else {
                 ++i;
-            }
         }
     }
 
@@ -102,20 +142,34 @@ void Game::update()
     window->setView(view);
 
     player->update();
-}
-
-void Game::render()
-{   
-    window->clear(sf::Color::Black);
-
-    worldMap->render(window);
-    
-    for (auto* e : enemies){
-        e->render(window);
+    if (player->didLevelUp()){
+        get3Cards();
+        positionCards();
+        gameState = GameState::LevelUp;
     }
 
-    player->render(window);
-    window->display();
+}
+
+void Game::updateLevelUp()
+{
+    bool cardChosen = false;
+
+    if (lastKeyPressed == sf::Keyboard::Scancode::Num1){
+        currentCards[0]->apply(*player);
+        cardChosen = true;
+    }else if(lastKeyPressed == sf::Keyboard::Scancode::Num2){
+        currentCards[1]->apply(*player);
+        cardChosen = true;
+    }else if(lastKeyPressed == sf::Keyboard::Scancode::Num3){
+        currentCards[2]->apply(*player);
+        cardChosen = true;
+    }
+
+    if (cardChosen){
+        currentCards.clear();
+        lastKeyPressed = sf::Keyboard::Scancode::Unknown;
+        gameState = GameState::Playing;
+    }
 }
 
 // Getters
@@ -202,7 +256,6 @@ void Game::enemyCollision() {
 
 }
 
-
 void Game::initVariables()
 {    
     window = nullptr;
@@ -251,4 +304,42 @@ void Game::initView()
 void Game::initMap()
 {
     worldMap = new Map();
+}
+
+void Game::initCards()
+{
+    cardPool.push_back(std::make_unique<Health_Card>());
+    cardPool.push_back(std::make_unique<Damage_Card>());
+    cardPool.push_back(std::make_unique<Speed_Card>());
+}
+
+void Game::get3Cards()
+{
+    currentCards.clear();
+
+    std::uniform_int_distribution<> dist(0, cardPool.size() - 1);
+
+    while (currentCards.size() < 3)
+    {
+        auto* candidate = cardPool[dist(gen)].get();
+
+        auto it = std::find(currentCards.begin(), currentCards.end(), candidate);
+        
+        if (it == currentCards.end()){
+            currentCards.push_back(candidate);
+        }
+    }
+
+}
+
+void Game::positionCards()
+{
+    int spacing = videoMode.size.x / 4.f;
+    sf::Vector2f screenCenter = {videoMode.size.x / 2.f, videoMode.size.y / 2.f};
+
+    for (int i = 0; i < currentCards.size(); i++){
+        float x = screenCenter.x + (i - 1) * spacing;
+        float y = screenCenter.y;
+        currentCards[i]->setPosition(sf::Vector2f(x, y));
+    }
 }

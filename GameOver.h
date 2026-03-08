@@ -7,12 +7,15 @@ class Settings;
 class GameOver {
     public:
         GameOver(Settings* settings);
+        ~GameOver();
         bool run();
 
     private:
         // Window
         sf::RenderWindow* window;
         void initwindow();
+        
+        void initMenuItems();
 
         // Variables
         sf::Font font;

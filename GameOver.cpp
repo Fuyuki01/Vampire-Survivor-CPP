@@ -1,6 +1,6 @@
 #include "GameOver.h"
 #include "Constants.h"
-#include "Settings.h"
+#include "Menu_Folder/Settings.h"
 #include <iostream>
 
 GameOver::GameOver(Settings* settings)
@@ -19,41 +19,13 @@ GameOver::GameOver(Settings* settings)
         std::cerr << "Can't find the font file MinimalPixelFont.TTF\n";
     }
 
-    gameOverText = std::make_unique<sf::Text>(
-        font, "GAME OVER", 72);
-    gameOverText->setFillColor(sf::Color::Red);
-    gameOverText->setStyle(sf::Text::Bold);
-
-    sf::FloatRect textRect = gameOverText->getLocalBounds();
-    gameOverText->setOrigin(sf::Vector2f(
-        textRect.position.x + textRect.size.x / 2.0f,
-        textRect.position.y + textRect.size.y / 2.0f ));
-    gameOverText->setPosition(sf::Vector2f(width / 2.0f, height / 2.0f));
-
     initwindow();
-
+    initMenuItems();
 }
 
-void GameOver::initwindow()
+GameOver::~GameOver()
 {
-    if (settingsPointer->fullscreen){
-        window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Game Over", sf::State::Fullscreen);
-    }else{
-        window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Game Over");
-    }
-    
-    window->setFramerateLimit(60);
-
-    auto desktop = sf::VideoMode::getDesktopMode();
-    auto windowSize = window->getSize();
-
-    sf::Vector2i desktopSize(static_cast<int>(desktop.size.x), static_cast<int>(desktop.size.y));
-    sf::Vector2i windowSizes(static_cast<int>(windowSize.x), static_cast<int>(windowSize.y));
-
-    window->setPosition(sf::Vector2i(
-    ((desktopSize.x - windowSizes.x) / 2),
-    ((desktopSize.y - windowSizes.y) / 2)
-    ));
+    delete window;
 }
 
 bool GameOver::run()
@@ -90,5 +62,42 @@ bool GameOver::run()
     }
     
     return false;
+
+}
+
+void GameOver::initwindow()
+{
+    if (settingsPointer->fullscreen){
+        window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Game Over", sf::State::Fullscreen);
+    }else{
+        window = new sf::RenderWindow(sf::VideoMode(sf::Vector2u(width, height)), "Game Over");
+    }
+    
+    window->setFramerateLimit(60);
+
+    auto desktop = sf::VideoMode::getDesktopMode();
+    auto windowSize = window->getSize();
+
+    sf::Vector2i desktopSize(static_cast<int>(desktop.size.x), static_cast<int>(desktop.size.y));
+    sf::Vector2i windowSizes(static_cast<int>(windowSize.x), static_cast<int>(windowSize.y));
+
+    window->setPosition(sf::Vector2i(
+    ((desktopSize.x - windowSizes.x) / 2),
+    ((desktopSize.y - windowSizes.y) / 2)
+    ));
+}
+
+void GameOver::initMenuItems()
+{
+    gameOverText = std::make_unique<sf::Text>(
+        font, "GAME OVER", 72);
+    gameOverText->setFillColor(sf::Color::Red);
+    gameOverText->setStyle(sf::Text::Bold);
+
+    sf::FloatRect textRect = gameOverText->getLocalBounds();
+    gameOverText->setOrigin(sf::Vector2f(
+        textRect.position.x + textRect.size.x / 2.0f,
+        textRect.position.y + textRect.size.y / 2.0f ));
+    gameOverText->setPosition(sf::Vector2f(width / 2.0f, height / 2.0f));
 
 }
