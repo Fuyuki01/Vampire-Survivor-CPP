@@ -51,7 +51,12 @@ void Game::pollevents()
             lastKeyPressed = keyPressed->scancode;
 
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
-                window->close();
+                if (gameState == GameState::Playing){
+                    window->close();
+                }else if (gameState == GameState::LevelUp){
+                    gameState = GameState::Playing;
+                    window->close();
+                }
             }
         }
     }
@@ -329,7 +334,7 @@ void Game::get3Cards()
             currentCards.push_back(candidate);
         }
     }
-
+    
 }
 
 void Game::positionCards()
