@@ -3,7 +3,6 @@
 #include <iostream>
 
 Enemy::Enemy(Player* player): enemySpeed(GameConstants::ENEMYSPEED),
-enemyInitPosition(GameConstants::ENEMYINITPOSITION_X, GameConstants::ENEMYINITPOSITION_Y),
 enemySize({GameConstants::ENEMYSIZE, GameConstants::ENEMYSIZE}), playerPointer(player),
 texture(), sprite(texture), dropableXp(0.f)
 {
@@ -80,3 +79,8 @@ void Enemy::getDamaged(float damage)
         }
 }
 
+void Enemy::setPosition(const sf::Vector2f& spawnPos)
+{
+    hitBox.setPosition(spawnPos);
+    sprite.setPosition(spawnPos);
+}
