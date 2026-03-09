@@ -11,6 +11,8 @@ class Enemy{
         void update();
         void render(sf::RenderTarget* target);
 
+        void setPosition(const sf::Vector2f& spawnPos); 
+
         virtual void updateAppearance() = 0;
 
         void getDamaged(float damage); 

@@ -198,28 +198,38 @@ bool Game::windowIsOpen() const
 
 // Private Functions
 
+// Enemy automatic spawn around the player
 void Game::enemyAutomaticSpawn()
 {
+    // decide how many enemies to spawn
+    std::uniform_int_distribution<> countDist(2, 5);
+    int count = countDist(gen);
+    for (int i = 0; i < count; i++){
+        Enemy* enemy = nullptr;
+        // decide which type of enemy to spawn
+        std::uniform_int_distribution<> typeDist(0, 2);
+        int type = typeDist(gen);
 
-    std::uniform_int_distribution<> dist(0, 2);
-    Enemy* enemy = nullptr;
-    
-    switch (dist(gen))
-    {
-    case 0:
-        enemy = new Enemy_Humongous(player);
-        break;
-    case 1:
-        enemy = new Enemy_Troll(player);
-        break;
-    case 2:
-        enemy = new Enemy_Goblin(player);
-        break;
-    default:
-        break;
+
+        switch (type)
+        {
+        case 0:
+            enemy = new Enemy_Humongous(player);
+            break;
+        case 1:
+            enemy = new Enemy_Troll(player);
+            break;
+        case 2:
+            enemy = new Enemy_Goblin(player);
+            break;
+        default:
+            break;
+        }
+        sf::Vector2f spawnPos = randomSpawnPosition();
+        enemy->setPosition(spawnPos);
+
+        enemies.push_back(enemy);  
     }
-
-    enemies.push_back(enemy);  
 }
 
 // enemy collision with enemy
@@ -394,4 +404,19 @@ void Game::positionCards()
         float y = screenCenter.y;
         currentCards[i]->setPosition(sf::Vector2f(x, y));
     }
+}
+
+// random spawn position for enemies
+sf::Vector2f Game::randomSpawnPosition()
+{   
+    // Generate a random angle and radius for the spawn position
+    static std::uniform_real_distribution<float> angleDist(0.f, 2.f * 3.14159f);
+    static std::uniform_real_distribution<float> radiusDist(
+        GameConstants::MIN_SPAWN_DISTANCE,
+        GameConstants::MAX_SPAWN_DISTANCE);
+
+    float angle = angleDist(gen);
+    float radius = radiusDist(gen);
+    sf::Vector2f playerPos = player->returnPosition();
+    return playerPos + sf::Vector2f(std::cos(angle), std::sin(angle)) * radius;
 }

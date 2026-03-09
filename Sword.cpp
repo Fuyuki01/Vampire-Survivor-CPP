@@ -1,6 +1,7 @@
 #include "Sword.h"
 #include "Constants.h"
 #include "Player.h"
+#include <cmath>
 #include <iostream>
 
 Sword::Sword(Player *player, const float damage): Weapon(player, damage)

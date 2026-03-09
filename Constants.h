@@ -40,8 +40,8 @@ namespace GameConstants{
     constexpr float GOBLIN_SPEED = 3.5f;
         // Enemy Spawn Timer
     constexpr float ENEMY_SPAWN_TIME = 3.f;
-    constexpr float ENEMYINITPOSITION_X = 100.f;
-    constexpr float ENEMYINITPOSITION_Y = 100.f;
+    constexpr float MIN_SPAWN_DISTANCE = 750.f;
+    constexpr float MAX_SPAWN_DISTANCE = 1000.f;
     constexpr float ENEMYSIZE = 64.f;
     constexpr float ENEMY_DAMAGE = 20.f;
         // Enemy Hit Timer

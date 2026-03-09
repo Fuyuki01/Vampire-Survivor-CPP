@@ -52,6 +52,7 @@ class Game{
         // Enemy Spawn
         sf::Clock enemySpawnerTime;
         void enemyAutomaticSpawn();
+        sf::Vector2f randomSpawnPosition();
         
         // Camera
         sf::View view;
