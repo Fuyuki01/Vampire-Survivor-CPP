@@ -34,12 +34,13 @@ void Sword::updateAppearance()
 
 }
 
-void Sword::updateAnimation()
+void Sword::updateAnimation(int index, int weaponCount)
 {
     sf::Vector2f playerPosition = playerPointer->returnPosition();
-    sf::Vector2f anchorPosition;
+
+    float swingRadius = 130;
     
-    float horizontalOffset = (GameConstants::PLAYER_SIZE / 2) + 40;
+    float radius = (GameConstants::PLAYER_SIZE / 2) + 40;
 
     float verticalOffset = 20;
 
@@ -47,24 +48,30 @@ void Sword::updateAnimation()
 
     if (progress > 1) progress = 1;
 
-    float start = playerPointer->returnFacingRight() ? -20 : 20;
+    float angleStep = 360.f / weaponCount;
+    float angle = index * angleStep;
+    float angleRadians = angle * M_PI / 180;
+
+    float start = angle - swingRadius;
     
-    float end = playerPointer->returnFacingRight() ? 150 : -150;
+    float end = angle + swingRadius;
+    
+    float anchorX = playerPosition.x + cos(angleRadians) * radius;
+    float anchorY = playerPosition.y + sin(angleRadians) * radius;
 
-    if(playerPointer->returnFacingRight()){
-        anchorPosition = {playerPosition.x + horizontalOffset, playerPosition.y + verticalOffset};
-
-    }else{
-        anchorPosition = {playerPosition.x - horizontalOffset, playerPosition.y + verticalOffset};      
-
-    }
+    sf::Vector2f anchor = {anchorX, anchorY};
 
     swingAngle = sf::degrees(start + std::sin(progress * M_PI) * (end - start));
 
-    sprite.setRotation(swingAngle);
-    sprite.setPosition(anchorPosition);
-    hitBox.setRotation(swingAngle);
-    hitBox.setPosition(anchorPosition);
+    sprite.setRotation(swingAngle + sf::degrees(90.f));
+    sprite.setPosition(anchor);
+    hitBox.setRotation(swingAngle + sf::degrees(90.f));
+    hitBox.setPosition(anchor);
+}
+
+std::unique_ptr<Weapon> Sword::clone() const
+{
+    return std::make_unique<Sword>(*this);
 }
 
 void Sword::attack()

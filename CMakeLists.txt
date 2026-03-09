@@ -24,6 +24,7 @@ add_executable(game
     Cards_Folder/Damage_Card.cpp
     Cards_Folder/Health_Card.cpp
     Cards_Folder/Speed_Card.cpp
+    Cards_Folder/Weapons_Card.cpp
     Menu_Folder/MainMenu.cpp
     GameOver.cpp
     Menu_Folder/SettingMenu.cpp

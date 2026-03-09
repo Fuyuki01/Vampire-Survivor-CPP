@@ -24,10 +24,15 @@ class Player {
         bool returnFacingRight();
         void addXP(float amount);
         int getLevel() const; 
+        
+        // Card
         void updateHealth(float addHealth);
         void updateSpeed(float addSpeed);
         void updateWeaponDamage(float addWeaponDamage);
-        bool didLevelUp();
+        void updateWeaponCount(int addWeaponCount);
+
+        bool didLevelUp();  
+        
         // Knockback function
         void move(const sf::Vector2f& offset);
         void setKnockback(const sf::Vector2f& velocity);

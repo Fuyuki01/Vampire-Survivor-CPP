@@ -10,9 +10,11 @@ class Sword: public Weapon{
 
         void updateAppearance() override;
 
-    protected:
-        void updateAnimation() override;
+        std::unique_ptr<Weapon> clone() const override;
 
+    protected:
+        void updateAnimation(int index, int weaponCount) override;
+        
     private:
         void attack() override;
 

@@ -10,7 +10,7 @@ class Weapon{
 
         virtual void updateAppearance() = 0;
 
-        virtual void update();
+        virtual void update(int index, int weaponsSize);
         virtual void render(sf::RenderTarget* target);
 
         virtual int returnDamage() = 0;
@@ -19,6 +19,9 @@ class Weapon{
         sf::Rect<float> returnBounds();
         bool isActive() const;
 
+        // Clone
+        virtual std::unique_ptr<Weapon> clone() const = 0;
+        
     protected:
         // Damage
         float damage;
@@ -30,7 +33,7 @@ class Weapon{
         sf::Sprite sprite;
 
         // Animation
-        virtual void updateAnimation() = 0;
+        virtual void updateAnimation(int index, int weaponCount) = 0;
         
         // Hitbox
         virtual void initializeHitbox() = 0;

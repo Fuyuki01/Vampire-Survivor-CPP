@@ -104,8 +104,9 @@ void Player::update()
         xpBar->updateXp(xpFraction);
         xpBar->update();
 
-        for (auto& weapon : weapons){
-            weapon->update();
+        int weaponSize = weapons.size();
+        for (int i = 0; i < weaponSize; i++){
+            weapons[i]->update(i, weaponSize);
         }
         
     }
@@ -214,6 +215,19 @@ void Player::updateWeaponDamage(float addWeaponDamage)
 {
     for (const auto& weapon : weapons){
         weapon->updateDamage(addWeaponDamage);
+    }
+}
+
+void Player::updateWeaponCount(int addWeaponCount)
+{
+    int weaponCount = weapons.size();
+    bool swordAdded = false;
+    
+    for (int j = 0; j < weaponCount; j++){
+        if (auto sword = dynamic_cast<Sword*>(weapons[j].get()) && !swordAdded){
+            weapons.push_back(weapons[j]->clone());
+            swordAdded = true;
+        }
     }
 }
 

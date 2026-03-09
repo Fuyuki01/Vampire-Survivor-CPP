@@ -12,7 +12,7 @@ Weapon::Weapon(Player *player, const float damage): texture(), sprite(texture), 
     attackDuration.restart();
 }
 
-void Weapon::update()
+void Weapon::update(int index, int weaponsSize)
 {
     if (cooldown.getElapsedTime().asSeconds() >= cooldownTime and !active){
         active = true;
@@ -21,7 +21,7 @@ void Weapon::update()
     }
 
     if (active){
-        updateAnimation();
+        updateAnimation(index, weaponsSize);
     }
 
     if (attackDuration.getElapsedTime().asSeconds() >= durationTime and active){
@@ -51,3 +51,4 @@ bool Weapon::isActive() const
 {
     return active;
 }
+

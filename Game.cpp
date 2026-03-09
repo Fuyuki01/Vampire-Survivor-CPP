@@ -9,6 +9,7 @@
 #include "Cards_Folder/Health_Card.h"
 #include "Cards_Folder/Damage_Card.h"
 #include "Cards_Folder/Speed_Card.h"
+#include "Cards_Folder/Weapons_Card.h"
 #include "Map.h"
 #include "Weapon.h"
 #include "Menu_Folder/Settings.h"
@@ -361,6 +362,7 @@ void Game::initCards()
     cardPool.push_back(std::make_unique<Health_Card>());
     cardPool.push_back(std::make_unique<Damage_Card>());
     cardPool.push_back(std::make_unique<Speed_Card>());
+    cardPool.push_back(std::make_unique<Weapons_Card>());
 }
 
 void Game::get3Cards()
