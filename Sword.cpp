@@ -39,28 +39,27 @@ void Sword::updateAnimation()
     sf::Vector2f playerPosition = playerPointer->returnPosition();
     sf::Vector2f anchorPosition;
     
-    float horizontalOffset = GameConstants::PLAYER_SIZE / 2;
+    float horizontalOffset = (GameConstants::PLAYER_SIZE / 2) + 40;
 
-    float verticalOffset = 0;
+    float verticalOffset = 20;
+
+    float progress = attackDuration.getElapsedTime().asSeconds() / durationTime;
+
+    if (progress > 1) progress = 1;
+
+    float start = playerPointer->returnFacingRight() ? -20 : 20;
+    
+    float end = playerPointer->returnFacingRight() ? 150 : -150;
 
     if(playerPointer->returnFacingRight()){
-        anchorPosition = {playerPosition.x + horizontalOffset, playerPosition.y};
+        anchorPosition = {playerPosition.x + horizontalOffset, playerPosition.y + verticalOffset};
 
-        float start = 0;
-        float end = 150;
-
-        float progress = attackDuration.getElapsedTime().asSeconds() / durationTime;
-        if (progress > 1) progress = 1;
-        swingAngle = sf::degrees(start + progress * (end - start));
     }else{
-        anchorPosition = {playerPosition.x - horizontalOffset, playerPosition.y};      
-        float start = 0;
-        float end = -150;
+        anchorPosition = {playerPosition.x - horizontalOffset, playerPosition.y + verticalOffset};      
 
-        float progress = attackDuration.getElapsedTime().asSeconds() / durationTime;
-        if (progress > 1) progress = 1;
-        swingAngle = sf::degrees(start + progress * (end - start));
     }
+
+    swingAngle = sf::degrees(start + std::sin(progress * M_PI) * (end - start));
 
     sprite.setRotation(swingAngle);
     sprite.setPosition(anchorPosition);

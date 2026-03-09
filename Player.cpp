@@ -17,8 +17,6 @@ Player::Player(): texture(), sprite(texture) , xp(0) , maxXP(100.0f) , level(0) 
     maxHealth = GameConstants::PLAYER_HEALTH;
     levelUped = false;
 
-
-
     initliazeHealthBar();
     initliazeHitbox();
     initializeXpBar();
@@ -115,7 +113,6 @@ void Player::update()
 
 void Player::render(sf::RenderTarget* target)
 {
-    target->draw(hitBox);
     target->draw(sprite);
     healthBar->render(target);
     xpBar->render(target);

@@ -15,7 +15,6 @@ void Enemy::update(){
 
 void Enemy::render(sf::RenderTarget* target)
 {
-    target->draw(hitBox);
     target->draw(sprite);
 }
 
